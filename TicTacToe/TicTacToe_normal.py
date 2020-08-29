@@ -41,6 +41,14 @@ def win():
 
     return False
 
+def tie():
+    for row in board:
+        for spot in row:
+            if spot == " ":
+                return False
+
+    return True
+
 playing = True
 while playing:
     print_board()
@@ -64,6 +72,10 @@ while playing:
     if win():
         print_board()
         print(f"\n{current_player} wins!")
+        playing = False
+    elif tie():
+        print_board()
+        print(f"\nTie!")
         playing = False
     else:
         if current_player == player_X:
