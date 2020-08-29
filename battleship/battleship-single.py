@@ -1,3 +1,6 @@
+from random import randint, choice
+from operator import add
+
 # Variables
 shipNames = ['Carrier', 'Battleship', 'Cruiser', 'Submarine', 'Destroyer']
 shipLength = [5, 4, 3, 3, 2]
@@ -5,8 +8,12 @@ shipLength = [5, 4, 3, 3, 2]
 playerGrid = [[' ' for i in range(10)] for j in range(10)]
 # player view of computer's grid
 computerGrid = [[' ' for i in range(10)] for j in range(10)]
-playerShipCoords = [set() for i in range(5)]
-computerShipCoords = [set() for i in range(5)]
+playerShipsAlive = 5
+computerShipsAlive = 5
+playerShipAliveCoords = [set() for i in range(5)]
+playerShipSunkCoords = [set() for i in range(5)]
+computerShipAliveCoords = [set() for i in range(5)]
+computerShipSunkCoords = [set() for i in range(5)]
 
 
 def printGrid(grid):
@@ -31,7 +38,7 @@ def printGrid(grid):
 
 
 def setPlayerShips():
-    '''Get the ship placements of the player'''
+    '''Set the ship placements of the player'''
     for i in range(len(shipNames)):
         while True:
             print('Set the position of your ' +
@@ -70,11 +77,27 @@ def setPlayerShips():
                 continue
 
             # Check validity of ship placement
-            if checkShipPlacement(startCoords, endCoords, i, playerShipCoords, playerGrid):
+            if checkShipPlacement(startCoords, endCoords, i, playerShipAliveCoords, playerGrid):
                 printGrid(playerGrid)
                 break
             else:
                 print('Ships cannot intersect. Please try again.')
+                continue
+
+
+def setComputerShips():
+    '''Set the ship placements of the computer'''
+    for i in range(len(shipNames)):
+        while True:
+            startCoords = (randint(0, 9), randint(0, 9))
+            endCoords = tuple(map(add, startCoords, choice(
+                [(0, shipLength[i]-1), (shipLength[i]-1, 0)])))
+            if endCoords[0] < 0 or endCoords[0] > 9 or endCoords[1] < 0 or endCoords[1] > 9:
+                continue
+
+            if checkShipPlacement(startCoords, endCoords, i, computerShipAliveCoords):
+                break
+            else:
                 continue
 
 
@@ -132,5 +155,6 @@ def hitShip(coords, shipCoords, shipIndex=5):
 # Game loop
 while True:
     print('Welcome to Battleship!')
+    setComputerShips()
     setPlayerShips()
     break
