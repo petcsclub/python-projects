@@ -10,6 +10,10 @@ player_X = "X"
 player_O = "O"
 current_player = player_X
 playing = True
+wins = {
+    player_X: 0,
+    player_O: 0
+}
 
 def not_last(index, list):
     if index == len(list) - 1:
@@ -123,6 +127,7 @@ while playing:
         if win():
             print_board()
             print(f"\n{current_player} wins!")
+            wins[current_player] += 1
             game_ongoing = False
         elif tie():
             print_board()
@@ -133,6 +138,9 @@ while playing:
                 current_player = player_O
             else:
                 current_player = player_X 
+
+    print(f"X's wins: {wins[player_X]}")
+    print(f"O's wins: {wins[player_O]}")
 
     getting_again_choice = True
     while getting_again_choice:
