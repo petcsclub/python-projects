@@ -5,6 +5,9 @@ from time import sleep
 
 def setPlayerShips(shipNames, shipLength, playerShipAliveCoords, playerGrid):
     '''Set the ship placements of the player'''
+    print('Set the position of your ships!')
+    print("\nYOUR SHIPS")
+    printGrid(playerGrid)
     for i in range(len(shipNames)):
         while True:
             print('Set the position of your ' +
@@ -15,7 +18,8 @@ def setPlayerShips(shipNames, shipLength, playerShipAliveCoords, playerGrid):
                           shipNames[i] + '? ')
             startCoords = convert(start)
             if startCoords is None:
-                print('Invalid input. Please try again.')
+                print(
+                    'Invalid input. Examples of proper coordinates: a0, B9, c2. Please try again.')
                 continue
 
             # Get end coordinate and check validity
@@ -23,7 +27,8 @@ def setPlayerShips(shipNames, shipLength, playerShipAliveCoords, playerGrid):
                         shipNames[i] + '? ')
             endCoords = convert(end)
             if endCoords is None:
-                print('Invalid input. Please try again.')
+                print(
+                    'Invalid input. Examples of proper coordinates: a0, B9, c2. Please try again.')
                 continue
 
             # Check valid ship length and row/column
@@ -44,12 +49,18 @@ def setPlayerShips(shipNames, shipLength, playerShipAliveCoords, playerGrid):
 
             # Check validity of ship placement
             if checkShipPlacement(startCoords, endCoords, i, playerShipAliveCoords, playerGrid):
-                print("YOUR SHIPS")
+                print("\nYOUR SHIPS")
                 printGrid(playerGrid)
                 break
             else:
                 print('Ships cannot intersect. Please try again.')
                 continue
+
+    print("Ships successfully set!")
+    sleep(2)
+    print("--------------------------------------------------")
+    print("START GAME\n")
+    sleep(2)
 
 
 def setComputerShips(shipNames, shipLength, computerShipAliveCoords):
@@ -70,13 +81,14 @@ def setComputerShips(shipNames, shipLength, computerShipAliveCoords):
 
 def playerTurn(shipNames, computerGrid, computerShipsAlive, computerShipAliveCoords, computerShipSunkCoords):
     print("YOUR TURN!")
-    print("YOUR ATTACKS")
+    print("\nYOUR ATTACKS")
     printGrid(computerGrid)
     while True:
         attack = input('Coordinate for your attack this turn? ')
         attackCoords = convert(attack)
         if attackCoords is None:
-            print('Invalid input. Please try again.')
+            print(
+                'Invalid input. Examples of proper coordinates: a0, B9, c2. Please try again.')
             continue
         elif computerGrid[attackCoords[0]][attackCoords[1]] is not ' ':
             print('You have already attacked this coordinate. Please try again.')
@@ -100,17 +112,17 @@ def playerTurn(shipNames, computerGrid, computerShipsAlive, computerShipAliveCoo
                     computerGrid[coords[0]][coords[1]] = 'x'
             break
 
-    print("YOUR ATTACKS")
+    print("\nYOUR ATTACKS")
     printGrid(computerGrid)
     print("END TURN!")
     print("--------------------------------------------------")
-    sleep(5)
+    sleep(2)
 
 
 def computerTurn(shipNames, playerGrid, playerShipsAlive, playerShipAliveCoords, playerShipSunkCoords, computerAvailableAttacks):
     '''Execute computer turn'''
     print("COMPUTER TURN!")
-    print("YOUR SHIPS")
+    print("\nYOUR SHIPS")
     printGrid(playerGrid)
     sleep(2)
     attackCoords = choice(tuple(computerAvailableAttacks))
@@ -133,11 +145,11 @@ def computerTurn(shipNames, playerGrid, playerShipsAlive, playerShipAliveCoords,
             for coords in playerShipSunkCoords[shipIndex]:
                 playerGrid[coords[0]][coords[1]] = 'x'
 
-    print("YOUR SHIPS")
+    print("\nYOUR SHIPS")
     printGrid(playerGrid)
     print("END TURN!")
     print("--------------------------------------------------")
-    sleep(5)
+    sleep(2)
 
 
 def printGrid(grid):
@@ -146,7 +158,7 @@ def printGrid(grid):
         for j in range(-1, 10):
             if i == -1:
                 if j == -1:
-                    print("\n ", end=" ")
+                    print(" ", end=" ")
                 elif j == 9:
                     print(chr(j+48))
                 else:
@@ -236,7 +248,7 @@ while True:
 
     print('Welcome to Battleship!')
     setComputerShips(shipNames, shipLength, computerShipAliveCoords)
-    #setPlayerShips(shipNames, shipLength, playerShipAliveCoords, playerGrid)
+    setPlayerShips(shipNames, shipLength, playerShipAliveCoords, playerGrid)
 
     while True:
         playerTurn(shipNames, computerGrid, computerShipsAlive, computerShipAliveCoords,
@@ -251,17 +263,17 @@ while True:
 
     if computerShipsAlive == 0:
         print("YOU WON!")
-        print("YOUR SHIPS")
+        print("\nYOUR SHIPS")
         printGrid(playerGrid)
 
-        print("YOUR ATTACKS")
+        print("\nYOUR ATTACKS")
         printGrid(computerGrid)
     else:
         print("YOU LOST!")
-        print("YOUR SHIPS")
+        print("\nYOUR SHIPS")
         printGrid(playerGrid)
 
-        print("YOUR ATTACKS")
+        print("\nYOUR ATTACKS")
         for ship in computerShipAliveCoords:
             for coords in ship:
                 computerGrid[coords[0]][coords[1]] = 's'
@@ -278,4 +290,4 @@ while True:
         elif playAgain == 'n':
             break
         else:
-            print('Invalid input. Please try again.')
+            print("Invalid input. Please enter either 'y' or 'n'. Please try again.")
