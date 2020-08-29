@@ -9,6 +9,27 @@ playerShipCoords = [set() for i in range(5)]
 computerShipCoords = [set() for i in range(5)]
 
 
+def printGrid(grid):
+    '''Print the specified grid'''
+    for i in range(-1, 10):
+        for j in range(-1, 10):
+            if i == -1:
+                if j == -1:
+                    print("\n ", end=" ")
+                elif j == 9:
+                    print(chr(j+48))
+                else:
+                    print(chr(j+48), end=" ")
+            else:
+                if j == -1:
+                    print(chr(i+65), end=" ")
+                elif j == 9:
+                    print(grid[i][j])
+                else:
+                    print(grid[i][j], end=" ")
+    print("Legend: = ' ' = empty | '-' = miss | 'o' = hit | 'x' = sunk | 's' = ship (only available on your grid)\n")
+
+
 def setPlayerShips():
     '''Get the ship placements of the player'''
     for i in range(len(shipNames)):
@@ -50,6 +71,7 @@ def setPlayerShips():
 
             # Check validity of ship placement
             if checkShipPlacement(startCoords, endCoords, i, playerShipCoords, playerGrid):
+                printGrid(playerGrid)
                 break
             else:
                 print('Ships cannot intersect. Please try again.')
