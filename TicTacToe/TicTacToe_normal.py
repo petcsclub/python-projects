@@ -5,7 +5,6 @@ board = [[" ", " ", " "],
 player_X = "X"
 player_O = "O"
 current_player = player_X
-playing = True
 
 def print_board():
     print("\n  0   1   2")
@@ -27,10 +26,10 @@ def win():
         if all_same(row):
             return True
 
-    for col in range(3):
+    for column in range(3):
         check = []
         for row in board:
-            check.append(row[col])
+            check.append(row[column])
         if all_same(check):
             return True
 
@@ -42,6 +41,7 @@ def win():
 
     return False
 
+playing = True
 while playing:
     print_board()
 
