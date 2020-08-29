@@ -1,5 +1,6 @@
 from random import randint, choice
 from operator import add
+from time import sleep
 
 
 def setPlayerShips(shipNames, shipLength, playerShipAliveCoords, playerGrid):
@@ -64,6 +65,42 @@ def setComputerShips(shipNames, shipLength, computerShipAliveCoords):
                 break
             else:
                 continue
+
+
+def playerTurn(shipNames, computerGrid, computerShipsAlive, computerShipAliveCoords, computerShipSunkCoords):
+    print("YOUR TURN!")
+    printGrid(computerGrid)
+    while True:
+        attack = input('Coordinate for your attack this turn? ')
+        attackCoords = convert(attack)
+        if attackCoords is None:
+            print('Invalid input. Please try again.')
+            continue
+        elif computerGrid[attackCoords[0]][attackCoords[1]] is not ' ':
+            print('You have already attacked this coordinate. Please try again.')
+            continue
+
+        shipIndex = hitShip(attackCoords, computerShipAliveCoords)
+        if shipIndex is -1:
+            print("Miss!")
+            computerGrid[attackCoords[0]][attackCoords[1]] = '-'
+            break
+        else:
+            print("Hit!")
+            computerGrid[attackCoords[0]][attackCoords[1]] = 'o'
+            computerShipAliveCoords[shipIndex].remove(attackCoords)
+            computerShipSunkCoords[shipIndex].add(attackCoords)
+            if len(computerShipAliveCoords[shipIndex]) == 0:
+                print("You have sunk the computer's " +
+                      shipNames[shipIndex] + "!")
+                computerShipsAlive -= 1
+                for coords in computerShipSunkCoords[shipIndex]:
+                    computerGrid[coords[0]][coords[1]] = 'x'
+            break
+
+    printGrid(computerGrid)
+    print("END TURN!")
+    sleep(2)
 
 
 def printGrid(grid):
@@ -158,5 +195,11 @@ while True:
     print('Welcome to Battleship!')
     setComputerShips(shipNames, shipLength, computerShipAliveCoords)
     setPlayerShips(shipNames, shipLength, playerShipAliveCoords, playerGrid)
-    printGrid(playerGrid)
+
+    while True:
+        playerTurn(shipNames, computerGrid, computerShipsAlive, computerShipAliveCoords,
+                   computerShipSunkCoords)
+        if computerShipsAlive == 0:
+            break
+        break
     break
