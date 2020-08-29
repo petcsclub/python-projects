@@ -249,4 +249,33 @@ while True:
         if playerShipsAlive == 0:
             break
 
-        break
+    if computerShipsAlive == 0:
+        print("YOU WON!")
+        print("YOUR SHIPS")
+        printGrid(playerGrid)
+
+        print("YOUR ATTACKS")
+        printGrid(computerGrid)
+    else:
+        print("YOU LOST!")
+        print("YOUR SHIPS")
+        printGrid(playerGrid)
+
+        print("YOUR ATTACKS")
+        for ship in computerShipAliveCoords:
+            for coords in ship:
+                computerGrid[coords[0]][coords[1]] = 's'
+        printGrid(computerGrid)
+
+    sleep(5)
+    print("Thanks for playing!")
+
+    while True:
+        playAgain = input("Would you like to play again? [y/n] ")
+        playAgain = playAgain.lower()
+        if playAgain == 'y':
+            continue
+        elif playAgain == 'n':
+            break
+        else:
+            print('Invalid input. Please try again.')
