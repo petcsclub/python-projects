@@ -1,43 +1,8 @@
 from random import randint, choice
 from operator import add
 
-# Variables
-shipNames = ['Carrier', 'Battleship', 'Cruiser', 'Submarine', 'Destroyer']
-shipLength = [5, 4, 3, 3, 2]
-# player view of player's grid
-playerGrid = [[' ' for i in range(10)] for j in range(10)]
-# player view of computer's grid
-computerGrid = [[' ' for i in range(10)] for j in range(10)]
-playerShipsAlive = 5
-computerShipsAlive = 5
-playerShipAliveCoords = [set() for i in range(5)]
-playerShipSunkCoords = [set() for i in range(5)]
-computerShipAliveCoords = [set() for i in range(5)]
-computerShipSunkCoords = [set() for i in range(5)]
 
-
-def printGrid(grid):
-    '''Print the specified grid'''
-    for i in range(-1, 10):
-        for j in range(-1, 10):
-            if i == -1:
-                if j == -1:
-                    print("\n ", end=" ")
-                elif j == 9:
-                    print(chr(j+48))
-                else:
-                    print(chr(j+48), end=" ")
-            else:
-                if j == -1:
-                    print(chr(i+65), end=" ")
-                elif j == 9:
-                    print(grid[i][j])
-                else:
-                    print(grid[i][j], end=" ")
-    print("Legend: = ' ' = empty | '-' = miss | 'o' = hit | 'x' = sunk | 's' = ship (only available on your grid)\n")
-
-
-def setPlayerShips():
+def setPlayerShips(shipNames, shipLength, playerShipAliveCoords, playerGrid):
     '''Set the ship placements of the player'''
     for i in range(len(shipNames)):
         while True:
@@ -85,7 +50,7 @@ def setPlayerShips():
                 continue
 
 
-def setComputerShips():
+def setComputerShips(shipNames, shipLength, computerShipAliveCoords):
     '''Set the ship placements of the computer'''
     for i in range(len(shipNames)):
         while True:
@@ -99,6 +64,27 @@ def setComputerShips():
                 break
             else:
                 continue
+
+
+def printGrid(grid):
+    '''Print the specified grid'''
+    for i in range(-1, 10):
+        for j in range(-1, 10):
+            if i == -1:
+                if j == -1:
+                    print("\n ", end=" ")
+                elif j == 9:
+                    print(chr(j+48))
+                else:
+                    print(chr(j+48), end=" ")
+            else:
+                if j == -1:
+                    print(chr(i+65), end=" ")
+                elif j == 9:
+                    print(grid[i][j])
+                else:
+                    print(grid[i][j], end=" ")
+    print("Legend: = ' ' = empty | '-' = miss | 'o' = hit | 'x' = sunk | 's' = ship (only available on your grid)\n")
 
 
 def checkShipPlacement(startCoords, endCoords, shipIndex, shipCoords, grid=None):
@@ -152,9 +138,25 @@ def hitShip(coords, shipCoords, shipIndex=5):
     return -1
 
 
+# Declare variables
+shipNames = ['Carrier', 'Battleship', 'Cruiser', 'Submarine', 'Destroyer']
+shipLength = [5, 4, 3, 3, 2]
+
 # Game loop
 while True:
+    # player view of player's grid
+    playerGrid = [[' ' for i in range(10)] for j in range(10)]
+    # player view of computer's grid
+    computerGrid = [[' ' for i in range(10)] for j in range(10)]
+    playerShipsAlive = 5
+    computerShipsAlive = 5
+    playerShipAliveCoords = [set() for i in range(5)]
+    playerShipSunkCoords = [set() for i in range(5)]
+    computerShipAliveCoords = [set() for i in range(5)]
+    computerShipSunkCoords = [set() for i in range(5)]
+
     print('Welcome to Battleship!')
-    setComputerShips()
-    setPlayerShips()
+    setComputerShips(shipNames, shipLength, computerShipAliveCoords)
+    setPlayerShips(shipNames, shipLength, playerShipAliveCoords, playerGrid)
+    printGrid(playerGrid)
     break
