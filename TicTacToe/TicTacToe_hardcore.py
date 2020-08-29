@@ -81,6 +81,7 @@ def tie():
 
 playing = True
 while playing:
+    board = []
     getting_board_size = True
     while getting_board_size:
         try:
@@ -123,14 +124,25 @@ while playing:
             print_board()
             print(f"\n{current_player} wins!")
             game_ongoing = False
-            playing = False
         elif tie():
             print_board()
             print(f"\nTie!")
             game_ongoing = False
-            playing = False
         else:
             if current_player == player_X:
                 current_player = player_O
             else:
                 current_player = player_X 
+
+    getting_again_choice = True
+    while getting_again_choice:
+        again_choice = input("Play another game? (y/n) ")
+        if again_choice == "y":
+            print("Generating another game!\n")
+            getting_again_choice = False
+        elif again_choice == "n":
+            print("Aight, peace")
+            getting_again_choice = False
+            playing = False
+        else:
+            print("Invalid choice!")
