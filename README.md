@@ -1,15 +1,15 @@
 # python-projects
 Python Projects for Intro to Python Section
 
-[![Run on Repl.it](https://repl.it/badge/github/petcsclub/python-projects)](https://repl.it/github/petcsclub/python-projects)
+
 
 # How to Use
-Preface: everything here will be done on repl.it. You are welcome to do things locally if you'd like too, but the instructions here are tailored towards repl.it. 
+Preface: everything here will be done on repl.it. You are welcome to do things locally if you'd like too! 
 
 1. Connect GitHub to replit account
 	1. Go to https://repl.it/~
 	2. You should see an option to connect your GitHub to your repl.it account, click it and follow the instructions
-2. Go the shared PETCS folder, and go to the python folder. Open the file: python-projects. Or just click [here](https://repl.it/@PETCS/python-projects). 
+2. Click [![Run on Repl.it](https://repl.it/badge/github/petcsclub/python-projects)](https://repl.it/github/petcsclub/python-projects) This will create a repl in your own personal folder, not on the PETCS folder.
 3. Create a new branch
 	1. Click the version control menu on the left sidebar (second one down).
 	2. You will see a text field that says: "branch: master". Beside that field, you will see a plus sign. Click it to create a new branch, and name it depending on what you're creating (e.g., name the branch battleship if you're making the game battleship)
