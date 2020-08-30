@@ -6,6 +6,7 @@ player_X = "X"
 player_O = "O"
 current_player = player_X
 
+# displays board
 def print_board():
     print("\n  0   1   2")
     print(f"0 {board[0][0]} | {board[0][1]} | {board[0][2]}")
@@ -14,6 +15,7 @@ def print_board():
     print(" ---+---+---")    
     print(f"2 {board[2][0]} | {board[2][1]} | {board[2][2]}")
 
+# returns if all elements in a list are the same
 def all_same(list):
     for item in list:
         if item != list[0] or item == " ":
@@ -21,11 +23,14 @@ def all_same(list):
 
     return True
 
+# checks if someone wins
 def win():
+    # checks horizontally
     for row in board:
         if all_same(row):
             return True
 
+    # checks vertically
     for column in range(3):
         check = []
         for row in board:
@@ -33,28 +38,36 @@ def win():
         if all_same(check):
             return True
 
+    # checks diagonally (\)
     if all_same([board[0][0], board[1][1], board[2][2]]):
         return True
 
+    #checks diagonally (/)
     if all_same([board[2][0], board[1][1], board[0][2]]):
         return True
 
     return False
 
+# checks if the game is a tie
 def tie():
     for row in board:
-        for spot in row:
-            if spot == " ":
+        for space in row:
+            if space == " ":
                 return False
 
     return True
 
+# main game loop
 playing = True
 while playing:
+    # displays board
     print_board()
 
+    # displays whose turn it is
     print(f"\n{current_player}'s turn!")
 
+    # asks player where to place their mark, 
+    # if choice is occupied, doesn't exist, or causes an error, it repeats
     played = False
     while not played:
         try:
@@ -69,6 +82,8 @@ while playing:
         except:
             print("Invalid choice!")
 
+    # if someone wins or there's a tie, displays the winner and ends the main game loop
+    # if not, gives turn to next player and repeats main game loop
     if win():
         print_board()
         print(f"\n{current_player} wins!")
