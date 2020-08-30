@@ -1,8 +1,6 @@
 # python-projects
 Python Projects for Intro to Python Section
 
-
-
 # How to Use
 Preface: everything here will be done on repl.it. You are welcome to do things locally if you'd like too! 
 
