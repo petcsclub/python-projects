@@ -6,8 +6,7 @@ from time import sleep
 def setPlayerShips(shipNames, shipLength, playerShipAliveCoords, playerGrid):
     '''Set the ship placements of the player'''
     print('Set the position of your ships!')
-    print("\nYOUR SHIPS")
-    printGrid(playerGrid)
+    printGrid(playerGrid, True)
     for i in range(len(shipNames)):
         while True:
             print('Set the position of your ' +
@@ -49,8 +48,7 @@ def setPlayerShips(shipNames, shipLength, playerShipAliveCoords, playerGrid):
 
             # Check validity of ship placement
             if checkShipPlacement(startCoords, endCoords, i, playerShipAliveCoords, playerGrid):
-                print("\nYOUR SHIPS")
-                printGrid(playerGrid)
+                printGrid(playerGrid, True)
                 break
             else:
                 print('Ships cannot intersect. Please try again.')
@@ -74,6 +72,7 @@ def setComputerShips(shipNames, shipLength, computerShipAliveCoords):
                 continue
 
             if checkShipPlacement(startCoords, endCoords, i, computerShipAliveCoords):
+                print(str(startCoords) + str(endCoords))
                 break
             else:
                 continue
@@ -81,8 +80,8 @@ def setComputerShips(shipNames, shipLength, computerShipAliveCoords):
 
 def playerTurn(shipNames, computerGrid, computerShipsAlive, computerShipAliveCoords, computerShipSunkCoords):
     print("YOUR TURN!")
-    print("\nYOUR ATTACKS")
-    printGrid(computerGrid)
+    printGrid(computerGrid, False)
+    sunkShip = False
     while True:
         attack = input('Coordinate for your attack this turn? ')
         attackCoords = convert(attack)
@@ -105,6 +104,7 @@ def playerTurn(shipNames, computerGrid, computerShipsAlive, computerShipAliveCoo
             computerShipAliveCoords[shipIndex].remove(attackCoords)
             computerShipSunkCoords[shipIndex].add(attackCoords)
             if len(computerShipAliveCoords[shipIndex]) == 0:
+                sunkShip = True
                 print("You have sunk the computer's " +
                       shipNames[shipIndex] + "!")
                 computerShipsAlive -= 1
@@ -112,21 +112,24 @@ def playerTurn(shipNames, computerGrid, computerShipsAlive, computerShipAliveCoo
                     computerGrid[coords[0]][coords[1]] = 'x'
             break
 
-    print("\nYOUR ATTACKS")
-    printGrid(computerGrid)
+    if sunkShip:
+        printGrid(computerGrid, False)
     print("END TURN!")
     print("--------------------------------------------------")
+    if sunkShip:
+        sleep(3)
     sleep(2)
+    return computerShipsAlive
 
 
 def computerTurn(shipNames, playerGrid, playerShipsAlive, playerShipAliveCoords, playerShipSunkCoords, computerAvailableAttacks):
     '''Execute computer turn'''
     print("COMPUTER TURN!")
-    print("\nYOUR SHIPS")
-    printGrid(playerGrid)
+    printGrid(playerGrid, True)
     sleep(2)
     attackCoords = choice(tuple(computerAvailableAttacks))
     computerAvailableAttacks.remove(attackCoords)
+    sunkShip = False
     print('The computer attacked coordinate ' +
           chr(attackCoords[0]+65) + chr(attackCoords[1]+48) + '.')
     shipIndex = hitShip(attackCoords, playerShipAliveCoords)
@@ -139,21 +142,29 @@ def computerTurn(shipNames, playerGrid, playerShipsAlive, playerShipAliveCoords,
         playerShipAliveCoords[shipIndex].remove(attackCoords)
         playerShipSunkCoords[shipIndex].add(attackCoords)
         if len(playerShipAliveCoords[shipIndex]) == 0:
-            print("You have sunk the computer's " +
+            sunkShip = True
+            print("The computer sunk your " +
                   shipNames[shipIndex] + "!")
             playerShipsAlive -= 1
             for coords in playerShipSunkCoords[shipIndex]:
                 playerGrid[coords[0]][coords[1]] = 'x'
 
-    print("\nYOUR SHIPS")
-    printGrid(playerGrid)
+    if sunkShip:
+        printGrid(playerGrid, True)
     print("END TURN!")
     print("--------------------------------------------------")
+    if sunkShip:
+        sleep(3)
     sleep(2)
+    return playerShipsAlive
 
 
-def printGrid(grid):
+def printGrid(grid, isPlayerGrid):
     '''Print the specified grid'''
+    if isPlayerGrid:
+        print("\n      YOUR SHIPS")
+    else:
+        print("\n     YOUR ATTACKS")
     for i in range(-1, 10):
         for j in range(-1, 10):
             if i == -1:
@@ -170,7 +181,7 @@ def printGrid(grid):
                     print(grid[i][j])
                 else:
                     print(grid[i][j], end=" ")
-    print("Legend: = ' ' = empty | '-' = miss | 'o' = hit | 'x' = sunk | 's' = ship (only available on your grid)\n")
+    print("Legend: ' ' = empty | '-' = miss | 'o' = hit | 'x' = sunk | 's' = ship\nNote: you cannot see the position of the computer's ships until the game is finished\n")
 
 
 def checkShipPlacement(startCoords, endCoords, shipIndex, shipCoords, grid=None):
@@ -241,43 +252,41 @@ while True:
     computerShipAliveCoords = [set() for i in range(5)]
     computerShipSunkCoords = [set() for i in range(5)]
     computerAvailableAttacks = set()
+    gameLength = 0
 
     for i in range(10):
         for j in range(10):
             computerAvailableAttacks.add((i, j))
 
     print('Welcome to Battleship!')
+    print("--------------------------------------------------")
+    sleep(2)
     setComputerShips(shipNames, shipLength, computerShipAliveCoords)
     setPlayerShips(shipNames, shipLength, playerShipAliveCoords, playerGrid)
 
     while True:
-        playerTurn(shipNames, computerGrid, computerShipsAlive, computerShipAliveCoords,
-                   computerShipSunkCoords)
+        gameLength += 1
+        computerShipsAlive = playerTurn(shipNames, computerGrid, computerShipsAlive, computerShipAliveCoords,
+                                        computerShipSunkCoords)
         if computerShipsAlive == 0:
             break
 
-        computerTurn(shipNames, playerGrid, playerShipsAlive,
-                     playerShipAliveCoords, playerShipSunkCoords, computerAvailableAttacks)
+        playerShipsAlive = computerTurn(shipNames, playerGrid, playerShipsAlive,
+                                        playerShipAliveCoords, playerShipSunkCoords, computerAvailableAttacks)
         if playerShipsAlive == 0:
             break
 
     if computerShipsAlive == 0:
-        print("YOU WON!")
-        print("\nYOUR SHIPS")
-        printGrid(playerGrid)
-
-        print("\nYOUR ATTACKS")
-        printGrid(computerGrid)
+        print("YOU WON IN {} MOVES!".format(gameLength))
+        printGrid(playerGrid, True)
+        printGrid(computerGrid, False)
     else:
         print("YOU LOST!")
-        print("\nYOUR SHIPS")
-        printGrid(playerGrid)
-
-        print("\nYOUR ATTACKS")
+        printGrid(playerGrid, True)
         for ship in computerShipAliveCoords:
             for coords in ship:
                 computerGrid[coords[0]][coords[1]] = 's'
-        printGrid(computerGrid)
+        printGrid(computerGrid, False)
 
     sleep(5)
     print("Thanks for playing!")
