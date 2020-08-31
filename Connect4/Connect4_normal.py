@@ -20,42 +20,62 @@ symbols = {
     8: "8️⃣ ",
     9: "9️⃣ ",
 }
+
 players = ["r", "y"]
 current_player = players[0]
 
 
 # displays board
 def print_board():
-    col_indexes_print = "\n"
-    for col_index in range(len(board[0])):
-        col_indexes_print += f"{symbols[col_index]}"
-    print(f"{col_indexes_print}")
+    column_indexes_print = "\n"
+    for column_index in range(len(board[0])):
+        column_indexes_print += symbols[column_index]
+    print(column_indexes_print)
 
     for row in range(len(board)):
         row_print = ""
         for space in board[row]:
             row_print += symbols[space]
-        print(f"{row_print}")
+        print(row_print)
+
 
 # gets the bottommost empty space in a column
+def bottom_row(column):
+    for row in reversed(range(len(board))):
+        if board[row][column] == " " and column >= 0:
+            return row
 
-# displays board
-print_board()
+    return None
 
-# displays whose turn it is
-print(f"\n{symbols[current_player]}'s turn!")
 
-# asks player which column to place their mark, 
-# if column is full, doesn't exist, or causes an error, it repeats
-# played = False
-# while not played:
-#     try:
-#         column = int(input("Which column? "))
+# switches player
+def switch_player():
+    global current_player
+    if current_player == players[0]:
+        current_player = players[1]
+    else:
+        current_player = players[0]
 
-#         if board[row][column] == " ":
-#             board[row][column] = current_player
-#             played = True
-#         else:
-#             raise Exception()
-#     except:
-#         print("Invalid choice!")
+
+# main game loop
+playing = True
+while playing:
+    # displays board
+    print_board()
+
+    # displays whose turn it is
+    print(f"\n{symbols[current_player]}'s turn!")
+
+    # asks player which column to place their circle, 
+    # if column is occupied, doesn't exist, or causes an error, it repeats
+    played = False
+    while not played:
+        try:
+            column = int(input("Which column? "))
+
+            board[bottom_row(column)][column] = current_player
+            played = True
+        except:
+            print("Invalid choice!")
+
+    switch_player()
