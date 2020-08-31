@@ -316,14 +316,14 @@ while True:
     # Game loop
     while True:
         gameLength += 1
-        # Computer turn
+        # Player turn
         computerShipsAlive = playerTurn(shipNames, computerGrid, computerShipsAlive, computerShipAliveCoords,
                                         computerShipSunkCoords)
         # Check if game over
         if computerShipsAlive == 0:
             break
 
-        # Player turn
+        # Computer turn
         playerShipsAlive = computerTurn(shipNames, playerGrid, playerShipsAlive,
                                         playerShipAliveCoords, playerShipSunkCoords, computerAvailableAttacks)
         # Check if game over
