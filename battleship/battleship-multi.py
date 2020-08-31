@@ -301,12 +301,16 @@ while True:
     print("Thanks for playing!")
 
     # Check if players want to play again
+    playAgain = ''
     while True:
         playAgain = input("Would you like to play again? [y/n] ")
         playAgain = playAgain.lower()
-        if playAgain == 'y':
-            continue
-        elif playAgain == 'n':
+        if playAgain == 'y' or playAgain == 'n':
             break
         else:
             print("Invalid input. Please enter either 'y' or 'n'. Please try again.")
+
+    if playAgain == 'y':
+        continue
+    elif playAgain == 'n':
+        break
