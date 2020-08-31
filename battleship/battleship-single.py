@@ -320,17 +320,21 @@ while True:
         computerShipsAlive = playerTurn(shipNames, computerGrid, computerShipsAlive, computerShipAliveCoords,
                                         computerShipSunkCoords)
         # Check if game over
-        if computerShipsAlive == 0:
+        if computerShipsAlive == 0 and playerShipsAlive > 1:
             break
 
         # Computer turn
         playerShipsAlive = computerTurn(shipNames, playerGrid, playerShipsAlive,
                                         playerShipAliveCoords, playerShipSunkCoords, computerAvailableAttacks)
         # Check if game over
-        if playerShipsAlive == 0:
+        if computerShipsAlive == 0 or playerShipsAlive == 0:
             break
 
-    if computerShipsAlive == 0:
+    if playerShipsAlive == 0 and computerShipsAlive == 0:
+        print('TIE!')
+        printGrid(playerGrid, True)
+        printGrid(computerGrid, False)
+    elif computerShipsAlive == 0:
         # Player won
         print("YOU WON IN {} MOVES!".format(gameLength))
         printGrid(playerGrid, True)

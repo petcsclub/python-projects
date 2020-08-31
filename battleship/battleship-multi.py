@@ -266,17 +266,21 @@ while True:
         playerTwoShipsAlive = playerTurn(shipNames, playerTwoGrid, playerTwoShipsAlive, playerTwoShipAliveCoords,
                                          playerTwoShipSunkCoords, playerOneName)
         # Check if game over
-        if playerTwoShipsAlive == 0:
+        if playerTwoShipsAlive == 0 and playerOneShipsAlive > 1:
             break
 
         # Player turn
         playerOneShipsAlive = playerTurn(
             shipNames, playerOneGrid, playerOneShipsAlive, playerOneShipAliveCoords, playerOneShipSunkCoords, playerTwoName)
         # Check if game over
-        if playerOneShipsAlive == 0:
+        if playerOneShipsAlive == 0 or playerTwoShipsAlive == 0:
             break
 
-    if playerOneShipsAlive == 0:
+    if playerOneShipsAlive == 0 and playerTwoShipsAlive == 0:
+        print('TIE!')
+        printGrid(playerTwoGrid, True, playerTwoName)
+        printGrid(playerOneGrid, True, playerOneName)
+    elif playerOneShipsAlive == 0:
         # Player2 won
         print("{} WON IN {} MOVES!".format(playerTwoName, gameLength))
         # Populate player2 grid with positions of un hit ship coordinates
