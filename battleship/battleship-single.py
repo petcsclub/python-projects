@@ -103,13 +103,13 @@ def playerTurn(shipNames, computerGrid, computerShipsAlive, computerShipAliveCoo
             print(
                 'Invalid input. Examples of proper coordinates: a0, B9, c2. Please try again.')
             continue
-        elif computerGrid[attackCoords[0]][attackCoords[1]] is not ' ':
+        elif computerGrid[attackCoords[0]][attackCoords[1]] != ' ':
             print('You have already attacked this coordinate. Please try again.')
             continue
 
         # Check if attack hit a ship and update grid
         shipIndex = hitShip(attackCoords, computerShipAliveCoords)
-        if shipIndex is -1:
+        if shipIndex == -1:
             print("Miss!")
             computerGrid[attackCoords[0]][attackCoords[1]] = '-'
             break
@@ -155,7 +155,7 @@ def computerTurn(shipNames, playerGrid, playerShipsAlive, playerShipAliveCoords,
     shipIndex = hitShip(attackCoords, playerShipAliveCoords)
 
     # Check if attack hit a ship and update grid
-    if shipIndex is -1:
+    if shipIndex == -1:
         print("Miss!")
         playerGrid[attackCoords[0]][attackCoords[1]] = '-'
     else:
