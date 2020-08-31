@@ -20,8 +20,15 @@ Preface: everything here will be done on repl.it. You are welcome to do things l
 	3. Commit messages: actually make them meaningful and write about what changes you made. More specific = better, but don't go toooo specific.
 	4. How to make commits? Again, go to the version control. In the what did you change? text box, write the commit message. Then click the button "commit and push". That's one commit!
 	5. Note: if you need to switch between branches, commit all your changes before doing so. Otherwise, all your changes will be lost! :( 
-6. Pull requests
+6. Create a pull request
 	1. If you think you're done the project, make sure everything is commented and there aren't any visible/obvious errors. Then go to the [website of the repo](https://github.com/petcsclub/python-projects) and create a pull request for your specific branch. Read more here on how to [create one](https://guides.github.com/activities/hello-world/#pr). 
-	2. We'll have a couple people review your code, check it for bugs/flaws, and have you fix up a couple things if you need to. Then we'll merge the pull request. Congrats!
+	2. Assign 2 reviewers to your code, assign yourself as the assignee, and set the label to be "enhancement"
+	3. We'll have a couple people review your code, check it for bugs/flaws, and have you fix up a couple things if you need to. Then we'll merge the pull request. Congrats!
+7. How to review pull requests:
+	1. If you're assigned to review someone's pull request, congrats! It's a HUGE honor 😄
+	2. First of all, it's probably best to switch to the branch you're reviewing either on repl.it or locally. Play both variants of the game for a bit to get a feel on how things are implemented. 
+	3. Now it's start to dive deep into the code! Start from the main game loop to understand how the high level process, what data structures are used for, etc. If that all makes sense, dive into the specific functions to make sure all the logic is correct! It's okay to not do this all in one shot, especially if the code is long. It takes time to wrap your head around someone's code! If there's something you don't understand or is unclear, make a comment on the pull request (remember to mention the assignee).
+	4. Once you're done reviewing the code/while reviewing the code, add your feedback on the pull request. Include everything, from the code formatting to the logic, whether more comments would be more appropriate or if there would be a better way to structure things entirely! 
+	5. After the assignee has responded to your feedback and fixed everything up, make sure they've fixed everything properly. If they have, check in with the other reviewer to confirm that everything is spick and span. If both of you think everything looks good, allow the assignee to approve the pull request! YAY! 
 
 If you have any questions, please ask them in the #python channel! 
