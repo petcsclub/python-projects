@@ -57,6 +57,75 @@ def switch_player():
         current_player = players[0]
 
 
+# checks if all elements in a list are the same
+def all_same(list):
+    for item in list:
+        if item != list[0] or item == " ":
+            return False
+
+    return True
+
+
+# checks if someone wins
+def win():
+    # checks horizontally
+    for row in range(len(board)):
+        for column in range(len(board[row]) - 3):
+            if all_same([
+                board[row][column], 
+                board[row][column + 1],
+                board[row][column + 2],
+                board[row][column + 3]
+            ]):
+                return True
+
+    # checks vertically
+    for row in range(len(board) - 3):
+        for column in range(len(board[row])):
+            if all_same([
+                board[row][column],
+                board[row + 1][column],
+                board[row + 2][column],
+                board[row + 3][column]
+            ]):
+                return True
+
+    # checks diagonally (\)
+    for row in range(len(board) - 3):
+        for column in range(len(board[row]) - 3):
+            if all_same([
+                board[row][column],
+                board[row + 1][column + 1],
+                board[row + 2][column + 2],
+                board[row + 3][column + 3]
+            ]):
+                return True
+
+    #checks diagonally (/)
+    for row in range(3, len(board)):
+        for column in range(len(board[row]) - 3):
+            if all_same([
+                board[row][column],
+                board[row - 1][column + 1],
+                board[row - 2][column + 2],
+                board[row - 3][column + 3]
+            ]):
+                return True
+
+    return False
+
+
+# checks if the game is a tie
+def tie():
+    for row in board:
+        for space in row:
+            if space == " ":
+                return False
+
+    return True
+
+
+
 # main game loop
 playing = True
 while playing:
@@ -78,4 +147,15 @@ while playing:
         except:
             print("Invalid choice!")
 
-    switch_player()
+    # if someone wins or there's a tie, displays the winner and ends the main game loop
+    # if not, gives turn to next player and repeats main game loop
+    if win():
+        print_board()
+        print(f"\n{symbols[current_player]} wins!")
+        playing = False
+    elif tie():
+        print_board()
+        print(f"\nTie!")
+        playing = False
+    else:
+        switch_player()
