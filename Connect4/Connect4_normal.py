@@ -101,7 +101,7 @@ def win():
             ]):
                 return True
 
-    #checks diagonally (/)
+    # checks diagonally (/)
     for row in range(3, len(board)):
         for column in range(len(board[row]) - 3):
             if all_same([
@@ -123,7 +123,6 @@ def tie():
                 return False
 
     return True
-
 
 
 # main game loop
