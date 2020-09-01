@@ -165,7 +165,7 @@ while playing:
     # if no, ends main game loop
     getting_again_choice = True
     while getting_again_choice:
-        again_choice = input("Play another game? (y/n) ")
+        again_choice = input("Play another game? (y/n) ").lower()
         if again_choice == "y":
             print("Generating another game!\n")
             getting_again_choice = False
