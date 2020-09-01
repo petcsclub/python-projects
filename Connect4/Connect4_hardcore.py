@@ -7,7 +7,8 @@
 board_rows = 7
 board_columns = 6
 board = []
-
+players = ["r", "y"]
+current_player = players[0]
 symbols = {
     "r": "🔴",
     "y": "🟡",
@@ -23,9 +24,10 @@ symbols = {
     8: "8️⃣ ",
     9: "9️⃣ ",
 }
-
-players = ["r", "y"]
-current_player = players[0]
+wins = {
+    "r": 0,
+    "y": 0
+}
 
 
 # displays board
@@ -143,8 +145,8 @@ while playing:
     getting_board_size = True
     while getting_board_size:
         try:
-            board_rows = int(input("How many board rows? "))
             board_columns = int(input("How many board columns? "))
+            board_rows = int(input("How many board rows? "))
 
             if board_rows <= 0 or board_columns <= 0:
                 raise Exception()
@@ -188,6 +190,7 @@ while playing:
         if win():
             print_board()
             print(f"\n{symbols[current_player]} wins!")
+            wins[current_player] += 1
             game_ongoing = False
         elif tie():
             print_board()
@@ -195,6 +198,10 @@ while playing:
             game_ongoing = False
         else:
             switch_player()
+
+    # displays the win counter for each player
+    print(f"\n{symbols[players[0]]}'s wins: {wins[players[0]]}")
+    print(f"{symbols[players[1]]}'s wins: {wins[players[1]]}")
 
     # asks player if they want to play another game
     # if yes, repeats the main game loop
