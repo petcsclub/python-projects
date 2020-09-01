@@ -117,6 +117,8 @@ while playing:
             row.append(" ")
         board.append(row)
 
+    current_player = player_X
+
     # loop that repeats while game is ongoing
     game_ongoing = True
     while game_ongoing:
