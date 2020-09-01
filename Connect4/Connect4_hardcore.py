@@ -30,6 +30,7 @@ current_player = players[0]
 
 # displays board
 def print_board():
+    print()
     for digit in range(len(str(len(board[0])))):
         column_indexes_print = ""
         for column_index in range(len(board[0])):
@@ -159,6 +160,8 @@ while playing:
             row.append(" ")
         board.append(row)
 
+    current_player = players[0]
+
     # loop that repeats while game is ongoing
     game_ongoing = True
     while game_ongoing:
@@ -186,11 +189,25 @@ while playing:
             print_board()
             print(f"\n{symbols[current_player]} wins!")
             game_ongoing = False
-            playing = False
         elif tie():
             print_board()
             print(f"\nTie!")
             game_ongoing = False
-            playing = False
         else:
             switch_player()
+
+    # asks player if they want to play another game
+    # if yes, repeats the main game loop
+    # if no, ends main game loop
+    getting_again_choice = True
+    while getting_again_choice:
+        again_choice = input("Play another game? (y/n) ")
+        if again_choice == "y":
+            print("Generating another game!\n")
+            getting_again_choice = False
+        elif again_choice == "n":
+            print("Aight, peace")
+            getting_again_choice = False
+            playing = False
+        else:
+            print("Invalid choice!")
