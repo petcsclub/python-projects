@@ -101,9 +101,9 @@ while playing:
     getting_board_size = True
     while getting_board_size:
         try:
-            board_size = int(input("What board size? "))
+            board_size = int(input("What board size? (1-10) "))
 
-            if board_size <= 0:
+            if board_size <= 0 or board_size > 10:
                 raise Exception()
             else:
                 getting_board_size = False
