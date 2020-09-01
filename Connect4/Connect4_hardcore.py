@@ -4,8 +4,8 @@
 # Win counter
 # Change number of circles in a row needed to win
 
-board_rows = 7
-board_columns = 6
+board_columns = 7
+board_rows = 6
 board = []
 players = ["r", "y"]
 current_player = players[0]
@@ -139,10 +139,29 @@ def tie():
 # main game loop
 playing = True
 while playing:
+    board = []
+
+    # asks player if they want to have a custom board size
+    # if answer isn't y or n, it repeats
+    getting_board_size = True
+    getting_resize_choice = True
+    while getting_resize_choice:
+        try:
+            resize_choice = input("Change board size? (y/n) ")
+
+            if resize_choice == "y":
+                getting_board_size = True
+                getting_resize_choice = False
+            elif resize_choice  == "n":
+                getting_board_size = False
+                getting_resize_choice = False
+            else:
+                raise Exception()
+        except:
+            print("Invalid choice!")
+
     # asks player what board size they want
     # if rows/columns is less than 1 or causes an error, it repeats
-    board = []
-    getting_board_size = True
     while getting_board_size:
         try:
             board_columns = int(input("How many board columns? "))
