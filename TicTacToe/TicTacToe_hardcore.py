@@ -76,8 +76,8 @@ def win():
 
     #checks diagonally (/)
     check = []
-    for index, reverse_index in zip(range(len(board)), reversed(range(len(board)))):
-        check.append(board[index][reverse_index])
+    for index in range(len(board)):
+        check.append(board[index][len(board) - index - 1])
     if all_same(check):
         return True
 
