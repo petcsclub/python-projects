@@ -15,12 +15,6 @@ wins = {
     player_O: 0
 }
 
-# returns if index is the last in a list
-def not_last(index, list):
-    if index == len(list) - 1:
-        return False
-    return True
-
 # displays board
 def print_board():
     column_indexes_print = "\n  "
@@ -32,15 +26,15 @@ def print_board():
         row_print = f"{row_index}"
         for column_index in range(len(board[row_index])):
             row_print += f" {board[row_index][column_index]} "
-            if not_last(column_index, board[row_index]):
+            if column_index != len(board[row_index]) - 1:
                 row_print += "|"
         print(row_print)
 
-        if not_last(row_index, board):
+        if row_index != len(board) - 1:
             row_border_print = " "
             for column_index in range(len(board[row_index])):
                 row_border_print += "---"
-                if not_last(column_index, board[row_index]):
+                if column_index != len(board[row_index]) - 1:
                     row_border_print += "+"
             print(row_border_print)
 
