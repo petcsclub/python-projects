@@ -118,15 +118,14 @@ while playing:
     # asks player what board size they want
     # if choice is less than 1 or causes an error, it repeats
     board = []
-    getting_board_size = True
-    while getting_board_size:
+    while True:
         try:
             board_size = int(input("What board size? (1-10) "))
 
             if board_size <= 0 or board_size > 10:
                 raise Exception()
             else:
-                getting_board_size = False
+                break
         except:
             print("Invalid choice!")
 
@@ -150,15 +149,14 @@ while playing:
 
         # asks player where to place their mark, 
         # if choice is occupied, doesn't exist, or causes an error, it repeats
-        played = False
-        while not played:
+        while True:
             try:
                 column = int(input("Which column? "))
                 row = int(input("Which row? "))
 
                 if board[row][column] == " ":
                     board[row][column] = current_player
-                    played = True
+                    break
                 else:
                     raise Exception()
             except:
@@ -189,15 +187,14 @@ while playing:
     # asks player if they want to play another game
     # if yes, repeats the main game loop
     # if no, ends main game loop
-    getting_again_choice = True
-    while getting_again_choice:
+    while True:
         again_choice = input("Play another game? (y/n) ").lower()
         if again_choice == "y":
             print("Generating another game!\n")
-            getting_again_choice = False
+            break
         elif again_choice == "n":
             print("Aight, peace ✌")
-            getting_again_choice = False
             playing = False
+            break
         else:
             print("Invalid choice!")
