@@ -86,15 +86,14 @@ while playing:
 
     # asks player where to place their mark, 
     # if choice is occupied, doesn't exist, or causes an error, it repeats
-    played = False
-    while not played:
+    while True:
         try:
             column = int(input("Which column? "))
             row = int(input("Which row? "))
 
             if board[row][column] == " ":
                 board[row][column] = current_player
-                played = True
+                break
             else:
                 raise Exception()
         except:
