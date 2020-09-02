@@ -9,11 +9,23 @@ current_player = player_X
 
 def print_board():
     """Print out the board."""
+
+    # prints out the indexes of each column
     print("\n  0   1   2")
+
+    # prints out the values of the first row of the board
     print(f"0 {board[0][0]} | {board[0][1]} | {board[0][2]}")
+
+    # prints out a line to seperate rows 
     print(" ---+---+---")
+    
+    # prints out the values of the second row of the board
     print(f"1 {board[1][0]} | {board[1][1]} | {board[1][2]}")
+
+    # prints out a line to seperate rows 
     print(" ---+---+---")    
+
+    # prints out the values of the third row of the board
     print(f"2 {board[2][0]} | {board[2][1]} | {board[2][2]}")
 
 
