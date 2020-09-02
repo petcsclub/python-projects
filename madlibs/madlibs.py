@@ -1,5 +1,5 @@
 '''
-This program is an example/template of what your mad libs game could look like! The code is simple implementation of the game. Are there any ways you can improve it? :)
+This program is an example solution of what your mad libs game could look like! The code is simple implementation of the game. Are there any ways you can improve it? :)
 '''
 
 # Colour class for fancy text :)
@@ -43,7 +43,7 @@ def output_user_story(story):
     print(part, end="")
   print("\n\nTHE END\n")
 
-# Template story -> ngl easiest way to implement madlibs
+# Template story using a list
 story_temp = ["One ", "ADJ", " Wednesday afternoon, ", "NAME", " decides to attend an exciting PETCS meeting! ", "NAME", " happily walks into the ", "ADJ", " classroom choosing to ", "VERB", " by their favourite computer. The execs warmly greet all attending members and announce the lesson they are teaching: ", "LESSON", "! Everyone is puzzled, but agree to ", "VERB", " to the lesson. Halfway through the lesson, the principal ", "VERB", " into the room. He shouts at everyone to leave the premises, as there is a ", "ADJ", "NOUN1", " happening at the school soon ", "NAME", " being the smart student they are, chooses to ", "VERB", " out of the ", "NOUN2", " to escape the potential harm. With the PETCS meeting coming to an abrupt end, ", "NAME", " decides to go home and ", "ADVERB", " work on their ", "ADJ", " homework."]
 copy = story_temp[:]
 

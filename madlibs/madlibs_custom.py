@@ -1,5 +1,5 @@
 '''
-This program is an example/template of what your mad libs game could look like! The code is simple implementation of the game. Are there any ways you can improve it? :)
+This program is an example solution of what your mad libs game could look like! The code is simple implementation of the game. Are there any ways you can improve it? :)
 '''
 
 # Colour class for fancy text
@@ -58,7 +58,7 @@ def upload_story():
   # By default, it seperates by whitespace characters
   return story.split()
 
-# Asks the user if they want to repeat the last story
+# Asks the user if they want to repeat the last story inputted
 def repeat_story():
   while True:
       repeatPrev = input("Repeat last entered story? (y/n): ").lower()
@@ -70,7 +70,6 @@ def repeat_story():
 # Sometimes an input prompt will be muddled with punctuation, so we should remove it!
 def remove_punct(word):
   # You could also use string module for a more comprehensive list of punctuation
-  # There are two reasons a set is used. Can you guess them?
   punct = {".", ",", "?", "/", "!"}
   for ch in word:
     if ch in punct:
@@ -101,7 +100,7 @@ def get_user_input(story):
 def output_user_story(story):
   # \n outputs a newline
   print("\nHere is your Story!")
-  # Alternative way of joining a list is using the .join method, where in this case, a space between the quotes represents joining each word by a whitespace
+  # Alternative way of joining a list is using the .join method
   print(' '.join(story))
   print("\nTHE END\n")
 
