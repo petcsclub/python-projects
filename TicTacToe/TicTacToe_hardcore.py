@@ -18,25 +18,46 @@ wins = {
 
 def print_board():
     """Print out the board."""
+
+    # adds the index of each board column to a string, and prints it
     column_indexes_print = "\n  "
     for column_index in range(len(board[0])):
         column_indexes_print += f"{column_index}   "
     print(column_indexes_print)
 
+    # repeats for each row in the board
     for row_index in range(len(board)):
+        # creates a string that will represent the row that starts with the row's index
         row_print = f"{row_index}"
+
+        # adds each value in the row to row_print
         for column_index in range(len(board[row_index])):
             row_print += f" {board[row_index][column_index]} "
+
+            # unless the last value in the row is reached, add a "|" to seperate the values
             if column_index != len(board[row_index]) - 1:
                 row_print += "|"
+
+        # prints out the row
         print(row_print)
 
+        # unless the last row is reached, creates a border to seperate the rows
         if row_index != len(board) - 1:
+
+            # creates a string that will represent the border
             row_border_print = " "
+
+            # repeats for each value in the row
             for column_index in range(len(board[row_index])):
+                # add "---" to the string
                 row_border_print += "---"
+
+                # unless the last value is reached, add "+" to the string.
+                # these give the illusion of the "|" and "---" intersecting
                 if column_index != len(board[row_index]) - 1:
                     row_border_print += "+"
+
+            # prints out the row border
             print(row_border_print)
 
 
