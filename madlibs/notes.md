@@ -6,7 +6,7 @@ Topics/Lessons it covers
 * For, while and if loops
 * defining custom functions
 * Using built-in function and methods
-* Lists
+* Lists and sets
 * User input
 
 Comments are written for general club members, rather than execs, so there are small explanations for things we didn't teach.

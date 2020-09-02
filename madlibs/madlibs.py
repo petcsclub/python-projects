@@ -1,3 +1,7 @@
+'''
+This program is an example/template of what your mad libs game could look like! The code is simple implementation of the game. Are there any ways you can improve it? :)
+'''
+
 # Colour class for fancy text :)
 # Syntax: bcolours.BLUE or GREEN + STRING + bcolours.END
 class bcolours:
