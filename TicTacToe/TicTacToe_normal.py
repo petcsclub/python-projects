@@ -87,16 +87,20 @@ while playing:
     # asks player where to place their mark, 
     # if choice is occupied, doesn't exist, or causes an error, it repeats
     while True:
-        try:
-            column = int(input("Which column? "))
-            row = int(input("Which row? "))
+        column = input("Which column? ")
+        row = input("Which row? ")
 
-            if board[row][column] == " ":
-                board[row][column] = current_player
-                break
-            else:
-                raise Exception()
-        except:
+        # brackets? what is this blasphemy
+        if (
+            column.isdigit() and
+            row.isdigit() and
+            int(column) < 3 and
+            int(row) < 3 and
+            board[int(row)][int(column)] == " "
+        ):
+            board[int(row)][int(column)] = current_player
+            break
+        else:
             print("Invalid choice!")
 
     # if someone wins or there's a tie, displays the winner and ends the main game loop
