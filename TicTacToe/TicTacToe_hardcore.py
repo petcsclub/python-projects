@@ -119,14 +119,16 @@ while playing:
     # if choice is less than 1 or causes an error, it repeats
     board = []
     while True:
-        try:
-            board_size = int(input("What board size? (1-10) "))
+        board_size = input("What board size? (1-10) ")
 
-            if board_size <= 0 or board_size > 10:
-                raise Exception()
-            else:
-                break
-        except:
+        if (
+            board_size.isdigit() and
+            int(board_size) > 0 and
+            int(board_size) < 11
+        ):
+            board_size = int(board_size)
+            break
+        else:
             print("Invalid choice!")
 
     # sets the board's number of rows and columns equal to the chosen board size
@@ -150,16 +152,19 @@ while playing:
         # asks player where to place their mark, 
         # if choice is occupied, doesn't exist, or causes an error, it repeats
         while True:
-            try:
-                column = int(input("Which column? "))
-                row = int(input("Which row? "))
+            column = input("Which column? ")
+            row = input("Which row? ")
 
-                if board[row][column] == " ":
-                    board[row][column] = current_player
-                    break
-                else:
-                    raise Exception()
-            except:
+            if (
+                column.isdigit() and
+                row.isdigit() and
+                int(column) < len(board) and
+                int(row) < len(board) and
+                board[int(row)][int(column)] == " "
+            ):
+                board[int(row)][int(column)] = current_player
+                break
+            else:
                 print("Invalid choice!")
 
         # checks if someone wins or there's a tie
