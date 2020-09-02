@@ -6,8 +6,9 @@ player_X = "X"
 player_O = "O"
 current_player = player_X
 
-# displays board
+
 def print_board():
+    """Print out the board."""
     print("\n  0   1   2")
     print(f"0 {board[0][0]} | {board[0][1]} | {board[0][2]}")
     print(" ---+---+---")
@@ -15,16 +16,19 @@ def print_board():
     print(" ---+---+---")    
     print(f"2 {board[2][0]} | {board[2][1]} | {board[2][2]}")
 
-# returns if all elements in a list are the same
+
 def all_same(list):
+    """Take in a list, return whether all its elements are the same."""
     for item in list:
         if item != list[0] or item == " ":
             return False
 
     return True
 
-# checks if someone wins
+
 def win():
+    """Return whether someone has won."""
+
     # checks horizontally
     for row in board:
         if all_same(row):
@@ -42,20 +46,22 @@ def win():
     if all_same([board[0][0], board[1][1], board[2][2]]):
         return True
 
-    #checks diagonally (/)
+    # checks diagonally (/)
     if all_same([board[2][0], board[1][1], board[0][2]]):
         return True
 
     return False
 
-# checks if the game is a tie
+
 def tie():
+    """Return whether the game is a tie"""
     for row in board:
         for space in row:
             if space == " ":
                 return False
 
     return True
+
 
 # main game loop
 playing = True
