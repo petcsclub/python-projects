@@ -15,8 +15,9 @@ wins = {
     player_O: 0
 }
 
-# displays board
+
 def print_board():
+    """Print out the board."""
     column_indexes_print = "\n  "
     for column_index in range(len(board[0])):
         column_indexes_print += f"{column_index}   "
@@ -38,16 +39,19 @@ def print_board():
                     row_border_print += "+"
             print(row_border_print)
 
-# returns if all elements in a list are the same
+
 def all_same(list):
+    """Take in a list, return whether all its elements are the same."""
     for item in list:
         if item != list[0] or item == " ":
             return False
 
     return True
 
-# checks if someone wins
+
 def win():
+    """Return whether someone has won."""
+
     # checks horizontally
     for row in board:
         if all_same(row):
@@ -68,7 +72,7 @@ def win():
     if all_same(check):
         return True
 
-    #checks diagonally (/)
+    # checks diagonally (/)
     check = []
     for index in range(len(board)):
         check.append(board[index][len(board) - index - 1])
@@ -77,8 +81,9 @@ def win():
 
     return False
 
-# checks if the game is a tie
+
 def tie():
+    """Return whether the game is a tie"""
     for row in board:
         for spot in row:
             if spot == " ":
