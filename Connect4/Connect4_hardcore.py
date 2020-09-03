@@ -31,23 +31,47 @@ wins = {
 
 def print_board():
     """Print out the board."""
+
+    # adds newline before displaying the board
     print()
+
+    # the below code prints out each digit of the column indexes in a seperate line,
+    # so if a board size wider than 10 is chosen, 
+    # the indexes don't offset due to them having multiple digits
+
+    # repeats for each digit in the largest board column index
     for digit in range(len(str(len(board[0])))):
+        # creates string that will display the specific digit of each index
         column_indexes_print = ""
+
+        # repeats for each board column
         for column_index in range(len(board[0])):
+
+            # pads the column index to be the same length as the largest index
+            # so if the index doesn't have a tens digit for example, it won't print anything
             padded_column_index = str(column_index).rjust(len(str(len(board[0]))), "n")
             
+            # check if the index has the specific digit
+            # if yes, add the digit (converted to emoji form) to column_indexes_print
+            # if no, adds an empty space to column_indexes_print
             if padded_column_index[digit].isdigit():
                 column_indexes_print += symbols[int(padded_column_index[digit])]
             else:
                 column_indexes_print += "  "
 
+        # print out the specific digit of each column index
         print(column_indexes_print)
 
+    # repeats for each row in the board
     for row in range(len(board)):
+        # creates string that will represent the values in the row
         row_print = ""
+
+        # adds each value in the row to row_print
         for space in board[row]:
             row_print += symbols[space]
+
+        # prints the values in the row
         print(row_print)
 
 

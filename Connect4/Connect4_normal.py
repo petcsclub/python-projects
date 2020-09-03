@@ -27,15 +27,27 @@ current_player = players[0]
 
 def print_board():
     """Print out the board."""
+
+    # creates string that will label each board column with their label
     column_indexes_print = "\n"
+
+    # adds the index of each board column (converted to emoji form) to column_indexes_print
     for column_index in range(len(board[0])):
         column_indexes_print += symbols[column_index]
+
+    # prints string of board columns
     print(column_indexes_print)
 
+    # repeats for each row in board
     for row in range(len(board)):
+        # creates string that represents each value in the row
         row_print = ""
+
+        # adds each value in the row (converted to emoji form) to row_print
         for space in board[row]:
             row_print += symbols[space]
+
+        # print out all the values in the row
         print(row_print)
 
 
