@@ -25,8 +25,8 @@ players = ["r", "y"]
 current_player = players[0]
 
 
-# displays board
 def print_board():
+    """Print out the board."""
     column_indexes_print = "\n"
     for column_index in range(len(board[0])):
         column_indexes_print += symbols[column_index]
@@ -39,8 +39,8 @@ def print_board():
         print(row_print)
 
 
-# gets the bottommost empty space in a column
 def bottom_row(column):
+    """Return the bottommost empty space in a column."""
     for row in reversed(range(len(board))):
         if board[row][column] == " " and column >= 0:
             return row
@@ -48,8 +48,8 @@ def bottom_row(column):
     return None
 
 
-# switches player
 def switch_player():
+    """Switch the current player"""
     global current_player
     if current_player == players[0]:
         current_player = players[1]
@@ -57,8 +57,8 @@ def switch_player():
         current_player = players[0]
 
 
-# checks if all elements in a list are the same
 def all_same(list):
+    """Take in a list, return whether all its elements are the same."""
     for item in list:
         if item != list[0] or item == " ":
             return False
@@ -66,8 +66,9 @@ def all_same(list):
     return True
 
 
-# checks if someone wins
 def win():
+    """Return whether someone has won."""
+
     # checks horizontally
     for row in range(len(board)):
         for column in range(len(board[row]) - 3):
@@ -115,8 +116,8 @@ def win():
     return False
 
 
-# checks if the game is a tie
 def tie():
+    """Return whether the game is a tie"""
     for row in board:
         for space in row:
             if space == " ":
