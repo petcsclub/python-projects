@@ -60,6 +60,8 @@ def get_user_input(story):
       story[i] = story[i].replace("VERBD", bc.BLUE + input("Enter a verb (past tense): ") + bc.END)
     elif "ADVERB" in story[i]:
       story[i] = story[i].replace("ADVERB", bc.BLUE + input("Enter an adverb: ") + bc.END)
+    elif "EMOJI" in story[i]:
+      story[i] = story[i] = story[i].replace("EMOJI", input("Enter an emoji: "))
   return story
 
 # Variables that control the game
@@ -85,6 +87,7 @@ VERBP - Ask for a plural verb
 VERBS - Ask for a singular verb
 VERBD - Ask for a past tense verb
 ADVERB - Ask for a adverb
+EMOJI - Ask for an emoji
 * Legend is case sensitive!
 ''')
 
