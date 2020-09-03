@@ -2,7 +2,6 @@
 # Customizable board size
 # Option to play new game
 # Win counter
-# Change number of circles in a row needed to win
 
 board_columns = 7
 board_rows = 6
@@ -232,7 +231,7 @@ while playing:
             print("Generating another game!\n")
             getting_again_choice = False
         elif again_choice == "n":
-            print("Aight, peace")
+            print("Aight, peace ✌")
             getting_again_choice = False
             playing = False
         else:
