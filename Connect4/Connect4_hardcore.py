@@ -140,21 +140,20 @@ def tie():
 playing = True
 while playing:
     board = []
+    getting_board_size = True
 
     # asks player if they want to have a custom board size
     # if answer isn't y or n, it repeats
-    getting_board_size = True
-    getting_resize_choice = True
-    while getting_resize_choice:
+    while True:
         try:
             resize_choice = input("Change board size? (y/n) ").lower()
 
             if resize_choice == "y":
                 getting_board_size = True
-                getting_resize_choice = False
+                break
             elif resize_choice  == "n":
                 getting_board_size = False
-                getting_resize_choice = False
+                break
             else:
                 raise Exception()
         except:
@@ -162,17 +161,18 @@ while playing:
 
     # asks player what board size they want
     # if rows/columns is less than 1 or causes an error, it repeats
-    while getting_board_size:
-        try:
-            board_columns = int(input("How many board columns? "))
-            board_rows = int(input("How many board rows? "))
+    if getting_board_size:
+        while True:
+            try:
+                board_columns = int(input("How many board columns? "))
+                board_rows = int(input("How many board rows? "))
 
-            if board_rows <= 0 or board_columns <= 0:
-                raise Exception()
-            else:
-                getting_board_size = False
-        except:
-            print("Invalid choice!")
+                if board_rows <= 0 or board_columns <= 0:
+                    raise Exception()
+                else:
+                    break
+            except:
+                print("Invalid choice!")
 
     # sets board size to equal to chosen length and width
     for row_size in range(board_rows):
@@ -194,13 +194,12 @@ while playing:
 
         # asks player which column to place their circle, 
         # if column is occupied, doesn't exist, or causes an error, it repeats
-        played = False
-        while not played:
+        while True:
             try:
                 column = int(input("Which column? "))
 
                 board[bottom_row(column)][column] = current_player
-                played = True
+                break
             except:
                 print("Invalid choice!")
 
@@ -225,15 +224,14 @@ while playing:
     # asks player if they want to play another game
     # if yes, repeats the main game loop
     # if no, ends main game loop
-    getting_again_choice = True
-    while getting_again_choice:
+    while True:
         again_choice = input("Play another game? (y/n) ").lower()
         if again_choice == "y":
             print("Generating another game!\n")
-            getting_again_choice = False
+            break
         elif again_choice == "n":
             print("Aight, peace ✌")
-            getting_again_choice = False
             playing = False
+            break
         else:
             print("Invalid choice!")
