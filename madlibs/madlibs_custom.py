@@ -3,16 +3,78 @@ This program is an example solution of what your mad libs game could look like! 
 '''
 
 # Colour class for fancy text
-# Syntax: bcolours.BLUE or GREEN + STRING + bcolours.END
-class bcolours:
+# Syntax: bc.BLUE or GREEN + STRING + bc.END
+class bc:
     BLUE = '\033[94m'
     GREEN = '\033[92m'
     END = '\033[0m'
 
+def upload_story(copy, repeat):
+  """
+  Allows the user to upload a custom story
+
+  Parameters:
+  copy (list): Copy of previous story
+  repeat (bool): True if user wants to repeat last story
+
+  Returns:
+  story (list): The story the user will play next
+  """
+  if repeat:
+    return copy[:]
+  else:
+    while True:
+      story = input("Type/paste your story here (Don't press enter until you are finished): ")
+      while True:
+        # If they accidently pressed enter, they are allowed to input again
+        confirm = input("Confirm input (y/n): ").lower()
+        if confirm == 'y':
+          # Split is a method that 'splits' a string into a list
+          return story.split()
+        elif confirm == 'n':
+          print()
+          break
+        else:
+          print("Invalid input, try again!")
+
+def get_user_input(story):
+  """
+  This function stores the final story by replacing legend words with user input
+  
+  Parameters:
+  story (list): The list that will be looped through
+
+  Returns:
+  list: The final story with user input
+  """
+  for i in range(len(story)):
+    if "ADJ" in story[i]:
+      story[i] = story[i].replace("ADJ", bc.BLUE + input("Enter an adjective: ") + bc.END)
+    elif "NOUN" in story[i]:
+      story[i] = story[i].replace("NOUN", bc.BLUE + input("Enter a noun: ") + bc.END)
+    elif "VERBP" in story[i]:
+      story[i] = story[i].replace("VERBP", bc.BLUE + input("Enter a verb (plural): ") + bc.END)
+    elif "VERBS" in story[i]:
+      story[i] = story[i].replace("VERBS", bc.BLUE + input("Enter a verb (singular): ") + bc.END)
+    elif "VERBD" in story[i]:
+      story[i] = story[i].replace("VERBD", bc.BLUE + input("Enter a verb (past tense): ") + bc.END)
+    elif "ADVERB" in story[i]:
+      story[i] = story[i].replace("ADVERB", bc.BLUE + input("Enter an adverb: ") + bc.END)
+  return story
+
+# Variables that control the game
+keepPlaying = True
+repeat = False
+
+# Template story
+story_temp = []
+copy = []
+
+# Welcoming statements
+# \n prints a newline
 print("\nWelcome to PETCS Mad Libs!\n")
 print('''Info --------------------->
-Copy/paste a custom 1 paragraph story that follows the legend!
-If you want to input a .txt file, make sure the .txt file is in the same directory (folder) as the python script!
+Copy/paste a custom 1 paragraph story that follows the legend! 
 
 Recommended story length is 100 - 500 words, but I won't stop you in testing the limits :) 
 
@@ -25,92 +87,21 @@ VERBD - Ask for a past tense verb
 ADVERB - Ask for a adverb
 * Legend is case sensitive!
 ''')
+
+# Main game loop
+while keepPlaying:
+  # Prepares the story and gets user input
+  story_temp = upload_story(copy, repeat)
+  copy = story_temp[:]
+  print()
+  story = get_user_input(story_temp)
   
-keepPlaying = True
-repeat = False
-
-# Template story
-story_temp = []
-copy = []
-
-# Allows the user to upload a custom story
-def upload_story():
-  if repeat:
-    return copy[:]
-  else:
-    story = ""
-    while True:
-      choice = input("Upload .txt file or manually (txt/man): ").lower()
-      # This code assumes you put in the right .txt name.
-      # However, if you put the wrong name, it will throw an error. How can you work around that? 
-      # Hint: Try Except
-      if choice == "txt":
-        # Although we didn't teach open(), it is a built-in function for opening files
-        open_story = open(input("Enter file name: "), "r")
-        story = open_story.read()
-        break
-      elif choice == "man":
-        story = input("Type/paste your story here: ")
-        break
-      else:
-        print("Invalid choice, try again!")
-  # Split is a method that 'splits' a string into a list
-  # By default, it seperates by whitespace characters
-  return story.split()
-
-# Asks the user if they want to repeat the last story inputted
-def repeat_story():
-  while True:
-      repeatPrev = input("Repeat last entered story? (y/n): ").lower()
-      if repeatPrev == 'y':
-        return True
-      elif repeatPrev == 'n':
-        return False
-
-# Sometimes an input prompt will be muddled with punctuation, so we should remove it!
-def remove_punct(word):
-  # You could also use string module for a more comprehensive list of punctuation
-  punct = {".", ",", "?", "/", "!"}
-  for ch in word:
-    if ch in punct:
-      word = word.replace(ch, "")
-      return [word, ch]
-  return [word, ""]
-
-# This function stores user input
-def get_user_input(story):
-  # Checks if a part of the story needs input
-  for i in range(len(story)):
-    word = remove_punct(story[i]);
-    if word[0] == "ADJ":
-      story[i] = bcolours.BLUE + input("Enter an adjective: ") + bcolours.END + word[1]
-    elif word[0] == "NOUN":
-      story[i] = bcolours.BLUE + input("Enter a noun: ") + bcolours.END + word[1]
-    elif word[0] == "VERBP":
-      story[i] = bcolours.BLUE + input("Enter a verb (plural): ") + bcolours.END + word[1]
-    elif word[0] == "VERBS":
-      story[i] = bcolours.BLUE + input("Enter a verb (singular): ") + bcolours.END + word[1]
-    elif word[0] == "VERBD":
-      story[i] = bcolours.BLUE + input("Enter a verb (past tense): ") + bcolours.END + word[1]
-    elif story[i] == "ADVERB":
-      story[i] = bcolours.BLUE + input("Enter an adverb: ") + bcolours.END + word[1]
-  return story
-
-# This function outputs the user's story
-def output_user_story(story):
-  # \n outputs a newline
+  # Prints the final story out
   print("\nHere is your Story!")
   # Alternative way of joining a list is using the .join method
   print(' '.join(story))
   print("\nTHE END\n")
 
-# Main game loop
-while keepPlaying == True:
-  story_temp = upload_story()
-  copy = story_temp[:]
-  print()
-  story = get_user_input(story_temp)
-  output_user_story(story)
   # Allows user to play again
   while True:
     playAgain = input("Play again? (y/n): ").lower()
@@ -118,7 +109,17 @@ while keepPlaying == True:
       keepPlaying = False
       break
     elif playAgain == 'y':
-      repeat = repeat_story()
+      # Asks the user if they want to repeat last inputted story
+      while True:
+        repeatPrev = input("Repeat last entered story? (y/n): ").lower()
+        if repeatPrev == 'y':
+          repeat = True
+          break
+        elif repeatPrev == 'n':
+          repeat = False
+          break
+        else:
+          print("Invalid input, try again!")
       break
     else:
       print("Invalid input, try again!")
