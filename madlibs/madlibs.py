@@ -9,7 +9,7 @@ class bcolours:
     GREEN = '\033[92m'
     END = '\033[0m'
 
-def get_user_input(story, name):
+def get_user_input(story_temp, name):
   """
   This function stores the final story by replacing template with user input
   
@@ -20,6 +20,7 @@ def get_user_input(story, name):
   Returns:
   list: The final story with user input
   """
+  story = story_temp[:]
   for i in range(len(story)):
     if story[i] == "ADJ":
       story[i] = bcolours.BLUE + input("Enter an adjective: ") + bcolours.END
@@ -41,7 +42,6 @@ keepPlaying = True
 
 # Template story using a list
 story_temp = ["One ", "ADJ", " Wednesday afternoon, ", "NAME", " decides to attend an exciting PETCS meeting! ", "NAME", " happily walks into the ", "ADJ", " classroom choosing to ", "VERB", " by their favourite computer. The execs warmly greet all attending members and announce the lesson they are teaching: ", "LESSON", "! Everyone is puzzled, but agree to ", "VERB", " to the lesson. Halfway through the lesson, the principal runs", " into the room. He shouts at everyone to leave the premises, as there is a ", "ADJ", " ", "NOUN1", " happening at the school soon. ", "NAME", " being the smart student they are, chooses to ", "VERB", " out of the ", "NOUN2", " to escape the potential harm. With the PETCS meeting coming to an abrupt end, ", "NAME", " decides to go home and ", "ADVERB", " work on their ", "ADJ", " homework."]
-copy = story_temp[:]
 
 # Welcome statement
 print("\nWelcome to PETCS Mad Libs!")
@@ -52,9 +52,6 @@ while keepPlaying:
   name = bcolours.GREEN + input("\nPlease name your character: ") + bcolours.END
   print()
   story = get_user_input(story_temp, name)
-
-  # Resets the template story
-  story_temp = copy[:]
 
   # \n outputs a newline
   print("\nHere is your Story!")

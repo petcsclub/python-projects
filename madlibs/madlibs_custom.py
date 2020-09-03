@@ -21,7 +21,7 @@ def upload_story(copy, repeat):
   story (list): The story the user will play next
   """
   if repeat:
-    return copy[:]
+    return copy
   else:
     while True:
       story = input("Type/paste your story here (Don't press enter until you are finished): ")
@@ -37,7 +37,7 @@ def upload_story(copy, repeat):
         else:
           print("Invalid input, try again!")
 
-def get_user_input(story):
+def get_user_input(story_temp):
   """
   This function stores the final story by replacing legend words with user input
   
@@ -47,6 +47,7 @@ def get_user_input(story):
   Returns:
   list: The final story with user input
   """
+  story = story_temp[:]
   for i in range(len(story)):
     if "ADJ" in story[i]:
       story[i] = story[i].replace("ADJ", bc.BLUE + input("Enter an adjective: ") + bc.END)
@@ -70,7 +71,6 @@ repeat = False
 
 # Template story
 story_temp = []
-copy = []
 
 # Welcoming statements
 # \n prints a newline
@@ -94,8 +94,7 @@ EMOJI - Ask for an emoji
 # Main game loop
 while keepPlaying:
   # Prepares the story and gets user input
-  story_temp = upload_story(copy, repeat)
-  copy = story_temp[:]
+  story_temp = upload_story(story_temp, repeat)
   print()
   story = get_user_input(story_temp)
   
