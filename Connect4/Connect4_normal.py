@@ -138,12 +138,16 @@ while playing:
     # asks player which column to place their circle, 
     # if column is occupied, doesn't exist, or causes an error, it repeats
     while True:
-        try:
-            column = int(input("Which column? "))
+        column = input("Which column? ")
 
-            board[bottom_row(column)][column] = current_player
+        if (
+            column.isdigit() and
+            int(column) < 7 and
+            board[bottom_row(int(column))][int(column)] == " "
+        ):
+            board[bottom_row(int(column))][int(column)] = current_player
             break
-        except:
+        else:
             print("Invalid choice!")
 
     # if someone wins or there's a tie, displays the winner and ends the main game loop

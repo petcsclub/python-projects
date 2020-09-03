@@ -36,10 +36,12 @@ def print_board():
         column_indexes_print = ""
         for column_index in range(len(board[0])):
             padded_column_index = str(column_index).rjust(len(str(len(board[0]))), "n")
-            try:
+            
+            if padded_column_index[digit].isdigit():
                 column_indexes_print += symbols[int(padded_column_index[digit])]
-            except:
+            else:
                 column_indexes_print += "  "
+
         print(column_indexes_print)
 
     for row in range(len(board)):
@@ -145,7 +147,6 @@ while playing:
     # asks player if they want to have a custom board size
     # if answer isn't y or n, it repeats
     while True:
-        try:
             resize_choice = input("Change board size? (y/n) ").lower()
 
             if resize_choice == "y":
@@ -155,23 +156,25 @@ while playing:
                 getting_board_size = False
                 break
             else:
-                raise Exception()
-        except:
-            print("Invalid choice!")
+                print("Invalid choice!")
 
     # asks player what board size they want
     # if rows/columns is less than 1 or causes an error, it repeats
     if getting_board_size:
         while True:
-            try:
-                board_columns = int(input("How many board columns? "))
-                board_rows = int(input("How many board rows? "))
+            board_column_choice = input("How many board columns? ")
+            board_row_choice = input("How many board rows? ")
 
-                if board_rows <= 0 or board_columns <= 0:
-                    raise Exception()
-                else:
-                    break
-            except:
+            if (
+                board_column_choice.isdigit() and
+                board_row_choice.isdigit() and
+                int(board_column_choice) > 0 and 
+                int(board_row_choice) > 0
+            ):
+                board_columns = int(board_column_choice)
+                board_rows = int(board_row_choice)
+                break
+            else:
                 print("Invalid choice!")
 
     # sets board size to equal to chosen length and width
@@ -195,12 +198,16 @@ while playing:
         # asks player which column to place their circle, 
         # if column is occupied, doesn't exist, or causes an error, it repeats
         while True:
-            try:
-                column = int(input("Which column? "))
+            column = input("Which column? ")
 
-                board[bottom_row(column)][column] = current_player
+            if (
+                column.isdigit() and
+                int(column) < len(board) and
+                board[bottom_row(int(column))][int(column)] == " "
+            ):
+                board[bottom_row(int(column))][int(column)] = current_player
                 break
-            except:
+            else:
                 print("Invalid choice!")
 
         # if someone wins or there's a tie, displays the winner and ends the main game loop
