@@ -83,9 +83,9 @@ Recommended story length is 100 - 500 words, but I won't stop you in testing the
 Legend for user input:
 ADJ - Ask for an adjective
 NOUN - Ask for a noun
-VERBP - Ask for a plural verb
-VERBS - Ask for a singular verb
-VERBD - Ask for a past tense verb
+VERBP - Ask for a plural verb (they dance, we walk, etc)
+VERBS - Ask for a singular verb (he dances, she walks, etc)
+VERBD - Ask for a past tense verb (danced, walked, etc)
 ADVERB - Ask for a adverb
 EMOJI - Ask for an emoji
 * Legend is case sensitive!
