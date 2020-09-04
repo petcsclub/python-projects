@@ -1,5 +1,5 @@
 '''
-This is an example text-based adventure! Play it multiple times to get all the endings and fight randomized bosses
+This is the testing version of the game. The code is exactly the same, with the difference being no randomization on the paths. The correct path is LEFT, NO, LEFT. 
 '''
 
 from random import randint, choice
@@ -148,7 +148,8 @@ while True:
     
     sleep(2)
     # Randomly generate the correct path
-    if randint(0, 1) == 1:
+    # if randint(0, 1) == 1:
+    if decision == "left":
       print("\n> You choose to go", decision + ", but it seems you've gone even deeper into the forest.")
     else:
       print("\n> You choose to go", decision + ". As you make your way down the path, you are ambushed. You cannot make out who or what attacked you before everything goes black.")
@@ -184,7 +185,8 @@ while True:
 
     sleep(3)
     # Randomly chooses if you fight or escape
-    if randint(0, 1) == 1:
+    # if randint(0, 1) == 1:
+    if decision == "left":
       print("\n> You choose to go", decision + "...")
     else:
       print("\n> You choose to go", decision + ". The forest become less dense as you walk down the path.")
