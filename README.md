@@ -24,7 +24,7 @@ Preface: everything here will be done on repl.it. You are welcome to do things l
 	1. If you think you're done the project, make sure everything is commented and there aren't any visible/obvious errors. Then go to the [website of the repo](https://github.com/petcsclub/python-projects) and create a pull request for your specific branch. Read more here on how to [create one](https://guides.github.com/activities/hello-world/#pr). 
 	2. Assign 2 reviewers to your code, assign yourself as the assignee, and set the label to be "enhancement"
 	3. Description: write a lil intro, a brief description of the different variants, and anything else you think the reviewers should know! If you have multiple variants, maybe state the ones the reviewers should look at first. 
-	4. We'll have a couple people review your code, check it for bugs/flaws, and have you fix up a couple things if you need to. After making changes, click "Re-request review" beside the Reviewer's name. If everything is approved, you're free to merge the pull request. Congrats! 🎉
+	4. We'll have a couple people review your code, check it for bugs/flaws, and have you fix up a couple things if you need to. After making changes, click "Re-request review" beside the Reviewer's name. If everything is approved, you're free to merge the pull request and close the branch. Congrats! 🎉
 7. How to review pull requests:
 	1. If you're assigned to review someone's pull request, congrats! It's a HUGE honor 😄
 	2. First of all, it's probably best to switch to the branch you're reviewing either on repl.it or locally. Play both variants of the game for a bit to get a feel on how things are implemented. 
