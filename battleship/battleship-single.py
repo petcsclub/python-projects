@@ -81,7 +81,6 @@ def setComputerShips(shipNames, shipLength, computerShipAliveCoords):
                 continue
             # Check validity of ship placement
             if checkShipPlacement(startCoords, endCoords, i, computerShipAliveCoords):
-                print(str(startCoords) + str(endCoords))
                 break
             else:
                 continue
@@ -151,7 +150,7 @@ def computerTurn(shipNames, playerGrid, playerShipsAlive, playerShipAliveCoords,
     computerAvailableAttacks.remove(attackCoords)
     sunkShip = False
     print('The computer attacked coordinate ' +
-          chr(attackCoords[0]+65) + chr(attackCoords[1]+48) + '.')
+          chr(attackCoords[0]+65) + str(attackCoords[1]) + '.')
     shipIndex = hitShip(attackCoords, playerShipAliveCoords)
 
     # Check if attack hit a ship and update grid
@@ -201,9 +200,9 @@ def printGrid(grid, isPlayerGrid):
                 if j == -1:
                     print(" ", end=" ")
                 elif j == 9:
-                    print(chr(j+48))
+                    print(j)
                 else:
-                    print(chr(j+48), end=" ")
+                    print(j, end=" ")
             else:
                 # Print first column on numbers
                 if j == -1:

@@ -148,9 +148,9 @@ def printGrid(grid, showShips, playerName):
                 if j == -1:
                     print(" ", end=" ")
                 elif j == 9:
-                    print(chr(j+48))
+                    print(j)
                 else:
-                    print(chr(j+48), end=" ")
+                    print(j, end=" ")
             else:
                 # Print first column on numbers
                 if j == -1:
@@ -248,7 +248,6 @@ while True:
 
     print('Welcome to Battleship!')
     print("--------------------------------------------------")
-    sleep(2)
 
     # Set ships for both players
     playerOneName = setPlayerShips(shipNames, shipLength,
