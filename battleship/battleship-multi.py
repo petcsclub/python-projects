@@ -1,11 +1,11 @@
 # imports
 from random import randint, choice
-from operator import add
+from operator import add, mul
 from time import sleep
 import os
 
 
-def setPlayerShips(shipNames, shipLength, playerShipAliveCoords, playerGrid, playerNumber):
+def setPlayerShips(shipNames, shipLength, playerShipAliveCoords, playerGrid, playerNumber, directionMap):
     '''Get and set the ship placements of the player'''
 
     # Get player name
@@ -31,29 +31,21 @@ def setPlayerShips(shipNames, shipLength, playerShipAliveCoords, playerGrid, pla
                     'Invalid input. Examples of proper coordinates: a0, B9, c2. Please try again.')
                 continue
 
-            # Get end coordinate and check validity
-            end = input('Coordinate for the end of your ' +
-                        shipNames[i] + '? ')
-            endCoords = convert(end)
-            if endCoords is None:
+            # Get direction
+            direction = input('Direction for your ' +
+                              shipNames[i] + '? ([w/a/s/d] for up, left, down, right) ')
+            if direction not in ['w', 'a', 's', 'd']:
                 print(
-                    'Invalid input. Examples of proper coordinates: a0, B9, c2. Please try again.')
+                    "Invalid input. Please enter either 'w', 'a', 's', or 'd'. Please try again.")
                 continue
 
-            # Check valid ship length and ensure they are all on one row/column
-            if startCoords[0] == endCoords[0]:
-                if abs(startCoords[1]-endCoords[1]) + 1 != shipLength[i]:
-                    print(
-                        'Invalid ship length. Please try again.')
-                    continue
-            elif startCoords[1] == endCoords[1]:
-                if abs(startCoords[0]-endCoords[0]) + 1 != shipLength[i]:
-                    print(
-                        'Invalid ship length. Please try again.')
-                    continue
-            else:
-                print(
-                    'The start and end of the ship must be on the same row or column. Please try again.')
+            # Adds appropriate direction to startCoords to get endCoords
+            endCoords = tuple(
+                map(add, startCoords, tuple(map(mul, directionMap[direction], (shipLength[i]-1, shipLength[i]-1)))))
+
+            # Ensures endCoords is in the grid
+            if endCoords[0] < 0 or endCoords[0] > 9 or endCoords[1] < 0 or endCoords[1] > 9:
+                print('Ship is out of bounds. Please try again.')
                 continue
 
             # Check validity of ship placement
@@ -229,6 +221,12 @@ def hitShip(coords, shipCoords, shipIndex=5):
 # Declare const variables
 shipNames = ['Carrier', 'Battleship', 'Cruiser', 'Submarine', 'Destroyer']
 shipLength = [5, 4, 3, 3, 2]
+directionMap = {
+    'w': (-1, 0),
+    'a': (0, -1),
+    's': (1, 0),
+    'd': (0, 1),
+}
 
 # Full game loop
 while True:
@@ -251,9 +249,9 @@ while True:
 
     # Set ships for both players
     playerOneName = setPlayerShips(shipNames, shipLength,
-                                   playerOneShipAliveCoords, playerOneGrid, 1)
+                                   playerOneShipAliveCoords, playerOneGrid, 1, directionMap)
     playerTwoName = setPlayerShips(shipNames, shipLength,
-                                   playerTwoShipAliveCoords, playerTwoGrid, 2)
+                                   playerTwoShipAliveCoords, playerTwoGrid, 2, directionMap)
 
     print("START GAME\n")
     sleep(2)
