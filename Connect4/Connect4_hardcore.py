@@ -211,8 +211,7 @@ while playing:
     current_player = players[0]
 
     # loop that repeats while game is ongoing
-    game_ongoing = True
-    while game_ongoing:
+    while True:
         # displays board
         print_board()
 
@@ -240,11 +239,11 @@ while playing:
             print_board()
             print(f"\n{symbols[current_player]} wins!")
             wins[current_player] += 1
-            game_ongoing = False
+            break
         elif tie():
             print_board()
             print(f"\nTie!")
-            game_ongoing = False
+            break
         else:
             switch_player()
 
