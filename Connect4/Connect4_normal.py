@@ -139,8 +139,7 @@ def tie():
 
 
 # main game loop
-playing = True
-while playing:
+while True:
     # displays board
     print_board()
 
@@ -167,10 +166,10 @@ while playing:
     if win():
         print_board()
         print(f"\n{symbols[current_player]} wins!")
-        playing = False
+        break
     elif tie():
         print_board()
         print(f"\nTie!")
-        playing = False
+        break
     else:
         switch_player()
