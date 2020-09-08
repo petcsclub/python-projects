@@ -95,11 +95,7 @@ def switch_player():
 
 def all_same(l):
     """Take in a list, return whether all its elements are the same."""
-    for item in l:
-        if item != l[0] or item == " ":
-            return False
-
-    return True
+    return l.count("r") == 4 or l.count("y") == 4
 
 
 def win():
@@ -222,7 +218,6 @@ while playing:
         # if column is occupied, doesn't exist, or causes an error, it repeats
         while True:
             column = input("Which column? ")
-
             if (
                 column.isdigit() and
                 int(column) < len(board) and
