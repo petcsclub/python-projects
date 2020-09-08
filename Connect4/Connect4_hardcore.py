@@ -93,10 +93,10 @@ def switch_player():
         current_player = players[0]
 
 
-def all_same(list):
+def all_same(l):
     """Take in a list, return whether all its elements are the same."""
-    for item in list:
-        if item != list[0] or item == " ":
+    for item in l:
+        if item != l[0] or item == " ":
             return False
 
     return True
