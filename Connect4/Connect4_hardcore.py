@@ -220,7 +220,7 @@ while playing:
             column = input("Which column? ")
             if (
                 column.isdigit() and
-                int(column) < len(board) and
+                int(column) < len(board[0]) and
                 board[bottom_row(int(column))][int(column)] == " "
             ):
                 board[bottom_row(int(column))][int(column)] = current_player
