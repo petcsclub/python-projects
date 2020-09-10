@@ -23,8 +23,19 @@ while True:
     print('8: Battleship Multiplayer')
     print('9: Battleship Singleplayer\n')
 
-    choice = input(
-        'Which game would you like to play? Please enter an integer from 0 to 9: ')
+    choice = ''
+    while True:
+        choice = input(
+            'Which game would you like to play? Please enter an integer from 0 to 9: ')
+        if len(choice) == 1 and choice.isdecimal():
+            break
+        else:
+            print('Invalid input. Please enter an integer from 0 to 9.')
 
-    print('Enjoy! Note: if you would like to quit the game, do Ctrl + C. Then click the "run again" button at the bottom of the screen.')
+    print('Enjoy! Note: if you would like to quit the game, do Ctrl + C. Then click the "run again" button at the bottom of the screen.\n')
+    sleep(2)
+
+    # if choice == '0':
+
+    print('Hope you enjoyed playing! Returning to main menu...\n')
     sleep(2)
