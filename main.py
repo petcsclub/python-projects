@@ -1,4 +1,6 @@
 from time import sleep
+from battleship.battleship_single import runBattleshipSingle
+from battleship.battleship_multi import runBattleshipMulti
 
 
 class bc:
@@ -35,7 +37,13 @@ while True:
     print('Enjoy! Note: if you would like to quit the game, do Ctrl + C. Then click the "run again" button at the bottom of the screen.\n')
     sleep(2)
 
-    # if choice == '0':
+    if choice == '0':
+        # Placeholder
+        print('Madlibs')
+    elif choice == '8':
+        runBattleshipMulti()
+    elif choice == '9':
+        runBattleshipSingle()
 
     print('Hope you enjoyed playing! Returning to main menu...\n')
     sleep(2)
