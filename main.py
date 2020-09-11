@@ -10,7 +10,7 @@ class bc:
 
 
 while True:
-    print('Welcome to the PETCS Projects Demo! Here are all the available games:\n')
+    print('Welcome to the PETCS Intro to Python Projects Demo! Here are all the available games:\n')
     print(bc.BLUE + 'MEDIUM' + bc.END)
     print('0: Madlibs')
     print('1: Madlibs Custom')
