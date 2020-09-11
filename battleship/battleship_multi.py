@@ -320,4 +320,5 @@ def runBattleshipMulti():
 
 
 # Play game
-runBattleshipMulti()
+if __name__ == "__main__":
+    runBattleshipMulti()

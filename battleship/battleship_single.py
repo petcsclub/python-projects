@@ -369,4 +369,5 @@ def runBattleshipSingle():
 
 
 # Play game
-runBattleshipSingle()
+if __name__ == "__main__":
+    runBattleshipSingle()
