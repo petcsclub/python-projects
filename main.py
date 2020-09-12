@@ -1,6 +1,8 @@
 from time import sleep
 from battleship.battleship_single import runBattleshipSingle
 from battleship.battleship_multi import runBattleshipMulti
+from TicTacToe.TicTacToe_normal import run_tictactoe_normal
+from TicTacToe.TicTacToe_hardcore import run_tictactoe_hardcore
 
 
 class bc:
@@ -40,6 +42,10 @@ while True:
     if choice == '0':
         # Placeholder
         print('Madlibs')
+    elif choice == '2':
+        run_tictactoe_normal()
+    elif choice == '3':
+        run_tictactoe_hardcore()
     elif choice == '8':
         runBattleshipMulti()
     elif choice == '9':

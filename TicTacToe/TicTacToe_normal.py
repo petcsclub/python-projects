@@ -1,13 +1,4 @@
-board = [[" ", " ", " "],
-         [" ", " ", " "],
-         [" ", " ", " "]]
-
-player_X = "X"
-player_O = "O"
-current_player = player_X
-
-
-def print_board():
+def print_board(board):
     """Print out the board."""
 
     # prints out the indexes of each column
@@ -38,7 +29,7 @@ def all_same(list):
     return True
 
 
-def win():
+def win(board):
     """Return whether someone has won."""
 
     # checks horizontally
@@ -65,7 +56,7 @@ def win():
     return False
 
 
-def tie():
+def tie(board):
     """Return whether the game is a tie"""
     for row in board:
         for space in row:
@@ -75,46 +66,60 @@ def tie():
     return True
 
 
-# main game loop
-playing = True
-while playing:
-    # displays board
-    print_board()
+def run_tictactoe_normal():
+    """Overarching game loop"""
+    board = [[" ", " ", " "],
+            [" ", " ", " "],
+            [" ", " ", " "]]
 
-    # displays whose turn it is
-    print(f"\n{current_player}'s turn!")
+    player_X = "X"
+    player_O = "O"
+    current_player = player_X
 
-    # asks player where to place their mark, 
-    # if choice is occupied, doesn't exist, or causes an error, it repeats
-    while True:
-        column = input("Which column? ")
-        row = input("Which row? ")
+    # main game loop
+    playing = True
+    while playing:
+        # displays board
+        print_board(board)
 
-        # brackets? what is this blasphemy
-        if (
-            column.isdigit() and
-            row.isdigit() and
-            int(column) < 3 and
-            int(row) < 3 and
-            board[int(row)][int(column)] == " "
-        ):
-            board[int(row)][int(column)] = current_player
-            break
+        # displays whose turn it is
+        print(f"\n{current_player}'s turn!")
+
+        # asks player where to place their mark, 
+        # if choice is occupied, doesn't exist, or causes an error, it repeats
+        while True:
+            column = input("Which column? ")
+            row = input("Which row? ")
+
+            # brackets? what is this blasphemy
+            if (
+                column.isdigit() and
+                row.isdigit() and
+                int(column) < 3 and
+                int(row) < 3 and
+                board[int(row)][int(column)] == " "
+            ):
+                board[int(row)][int(column)] = current_player
+                break
+            else:
+                print("Invalid choice!")
+
+        # if someone wins or there's a tie, displays the winner and ends the main game loop
+        # if not, gives turn to next player and repeats main game loop
+        if win(board):
+            print_board(board)
+            print(f"\n{current_player} wins!")
+            playing = False
+        elif tie(board):
+            print_board(board)
+            print(f"\nTie!")
+            playing = False
         else:
-            print("Invalid choice!")
+            if current_player == player_X:
+                current_player = player_O
+            else:
+                current_player = player_X
 
-    # if someone wins or there's a tie, displays the winner and ends the main game loop
-    # if not, gives turn to next player and repeats main game loop
-    if win():
-        print_board()
-        print(f"\n{current_player} wins!")
-        playing = False
-    elif tie():
-        print_board()
-        print(f"\nTie!")
-        playing = False
-    else:
-        if current_player == player_X:
-            current_player = player_O
-        else:
-            current_player = player_X
+
+if __name__ == "__main__":
+    run_tictactoe_normal()
