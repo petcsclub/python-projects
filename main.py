@@ -3,6 +3,8 @@ from battleship.battleship_single import runBattleshipSingle
 from battleship.battleship_multi import runBattleshipMulti
 from TicTacToe.TicTacToe_normal import run_tictactoe_normal
 from TicTacToe.TicTacToe_hardcore import run_tictactoe_hardcore
+from Connect4.Connect4_normal_replit import run_connect4_normal
+from Connect4.Connect4_hardcore_replit import run_connect4_hardcore
 
 
 class bc:
@@ -46,6 +48,10 @@ while True:
         run_tictactoe_normal()
     elif choice == '3':
         run_tictactoe_hardcore()
+    elif choice == '4':
+        run_connect4_normal()
+    elif choice == '5':
+        run_connect4_hardcore()
     elif choice == '8':
         runBattleshipMulti()
     elif choice == '9':
