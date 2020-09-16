@@ -5,7 +5,8 @@ from TicTacToe.TicTacToe_normal import run_tictactoe_normal
 from TicTacToe.TicTacToe_hardcore import run_tictactoe_hardcore
 from Connect4.Connect4_normal_replit import run_connect4_normal
 from Connect4.Connect4_hardcore_replit import run_connect4_hardcore
-
+from madlibs.madlibs import runMadlibs
+from madlibs.madlibs_custom import runMadlibsCustom
 
 class bc:
     BLUE = '\033[94m'
@@ -43,7 +44,9 @@ while True:
 
     if choice == '0':
         # Placeholder
-        print('Madlibs')
+        runMadlibs()
+    elif choice == '1':
+        runMadlibsCustom()
     elif choice == '2':
         run_tictactoe_normal()
     elif choice == '3':
