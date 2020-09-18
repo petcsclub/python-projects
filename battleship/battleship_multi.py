@@ -218,100 +218,107 @@ def hitShip(coords, shipCoords, shipIndex=5):
     return -1
 
 
-# Declare const variables
-shipNames = ['Carrier', 'Battleship', 'Cruiser', 'Submarine', 'Destroyer']
-shipLength = [5, 4, 3, 3, 2]
-directionMap = {
-    'w': (-1, 0),
-    'a': (0, -1),
-    's': (1, 0),
-    'd': (0, 1),
-}
+def runBattleshipMulti():
+    '''Overarching game loop'''
+    # Declare const variables
+    shipNames = ['Carrier', 'Battleship', 'Cruiser', 'Submarine', 'Destroyer']
+    shipLength = [5, 4, 3, 3, 2]
+    directionMap = {
+        'w': (-1, 0),
+        'a': (0, -1),
+        's': (1, 0),
+        'd': (0, 1),
+    }
 
-# Full game loop
-while True:
-    # player2 view of player1's grid, initialize with 10x10 grid of ' '
-    playerOneGrid = [[' ' for i in range(10)] for j in range(10)]
-    # player1 view of player2's grid, initialize with 10x10 grid of ' '
-    playerTwoGrid = [[' ' for i in range(10)] for j in range(10)]
-    # Keep track of ships alive for player1 and player2 to determine when to end the game
-    playerOneShipsAlive = 5
-    playerTwoShipsAlive = 5
-    gameLength = 0
-    # Track coordinates for ships alive and sunk for both players in order to update char from 'o' to 'x' when the entire ship is sunk. Each index represents 1 ship.
-    playerOneShipAliveCoords = [set() for i in range(5)]
-    playerOneShipSunkCoords = [set() for i in range(5)]
-    playerTwoShipAliveCoords = [set() for i in range(5)]
-    playerTwoShipSunkCoords = [set() for i in range(5)]
-
-    print('Welcome to Battleship!')
-    print("--------------------------------------------------")
-
-    # Set ships for both players
-    playerOneName = setPlayerShips(shipNames, shipLength,
-                                   playerOneShipAliveCoords, playerOneGrid, 1, directionMap)
-    playerTwoName = setPlayerShips(shipNames, shipLength,
-                                   playerTwoShipAliveCoords, playerTwoGrid, 2, directionMap)
-
-    print("START GAME\n")
-    sleep(2)
-
-    # Game loop
+    # Full game loop
     while True:
-        gameLength += 1
-        # Player1 turn
-        playerTwoShipsAlive = playerTurn(shipNames, playerTwoGrid, playerTwoShipsAlive, playerTwoShipAliveCoords,
-                                         playerTwoShipSunkCoords, playerOneName)
-        # Check if game over
-        if playerTwoShipsAlive == 0 and playerOneShipsAlive > 1:
-            break
+        # player2 view of player1's grid, initialize with 10x10 grid of ' '
+        playerOneGrid = [[' ' for i in range(10)] for j in range(10)]
+        # player1 view of player2's grid, initialize with 10x10 grid of ' '
+        playerTwoGrid = [[' ' for i in range(10)] for j in range(10)]
+        # Keep track of ships alive for player1 and player2 to determine when to end the game
+        playerOneShipsAlive = 5
+        playerTwoShipsAlive = 5
+        gameLength = 0
+        # Track coordinates for ships alive and sunk for both players in order to update char from 'o' to 'x' when the entire ship is sunk. Each index represents 1 ship.
+        playerOneShipAliveCoords = [set() for i in range(5)]
+        playerOneShipSunkCoords = [set() for i in range(5)]
+        playerTwoShipAliveCoords = [set() for i in range(5)]
+        playerTwoShipSunkCoords = [set() for i in range(5)]
 
-        # Player turn
-        playerOneShipsAlive = playerTurn(
-            shipNames, playerOneGrid, playerOneShipsAlive, playerOneShipAliveCoords, playerOneShipSunkCoords, playerTwoName)
-        # Check if game over
-        if playerOneShipsAlive == 0 or playerTwoShipsAlive == 0:
-            break
+        print('Welcome to Battleship!')
+        print("--------------------------------------------------")
 
-    if playerOneShipsAlive == 0 and playerTwoShipsAlive == 0:
-        print('TIE!')
-        printGrid(playerTwoGrid, True, playerTwoName)
-        printGrid(playerOneGrid, True, playerOneName)
-    elif playerOneShipsAlive == 0:
-        # Player2 won
-        print("{} WON IN {} MOVES!".format(playerTwoName, gameLength))
-        # Populate player2 grid with positions of un hit ship coordinates
-        for ship in playerTwoShipAliveCoords:
-            for coords in ship:
-                playerTwoGrid[coords[0]][coords[1]] = 's'
-        # Print ships grids
-        printGrid(playerTwoGrid, True, playerTwoName)
-        printGrid(playerOneGrid, True, playerOneName)
-    else:
-        # Player1 won
-        print("{} WON IN {} MOVES!".format(playerOneName, gameLength))
-        # Populate player1 grid with positions of un hit ship coordinates
-        for ship in playerOneShipAliveCoords:
-            for coords in ship:
-                playerOneGrid[coords[0]][coords[1]] = 's'
-        # Print ships grids
-        printGrid(playerOneGrid, True, playerOneName)
-        printGrid(playerTwoGrid, True, playerTwoName)
+        # Set ships for both players
+        playerOneName = setPlayerShips(shipNames, shipLength,
+                                       playerOneShipAliveCoords, playerOneGrid, 1, directionMap)
+        playerTwoName = setPlayerShips(shipNames, shipLength,
+                                       playerTwoShipAliveCoords, playerTwoGrid, 2, directionMap)
 
-    sleep(5)
-    print("Thanks for playing!")
+        print("START GAME\n")
+        sleep(2)
 
-    # Check if players want to play again
-    playAgain = ''
-    while True:
-        playAgain = input("Would you like to play again? [y/n] ")
-        playAgain = playAgain.lower()
-        if playAgain == 'y' or playAgain == 'n':
-            break
+        # Game loop
+        while True:
+            gameLength += 1
+            # Player1 turn
+            playerTwoShipsAlive = playerTurn(shipNames, playerTwoGrid, playerTwoShipsAlive, playerTwoShipAliveCoords,
+                                             playerTwoShipSunkCoords, playerOneName)
+            # Check if game over
+            if playerTwoShipsAlive == 0 and playerOneShipsAlive > 1:
+                break
+
+            # Player turn
+            playerOneShipsAlive = playerTurn(
+                shipNames, playerOneGrid, playerOneShipsAlive, playerOneShipAliveCoords, playerOneShipSunkCoords, playerTwoName)
+            # Check if game over
+            if playerOneShipsAlive == 0 or playerTwoShipsAlive == 0:
+                break
+
+        if playerOneShipsAlive == 0 and playerTwoShipsAlive == 0:
+            print('TIE!')
+            printGrid(playerTwoGrid, True, playerTwoName)
+            printGrid(playerOneGrid, True, playerOneName)
+        elif playerOneShipsAlive == 0:
+            # Player2 won
+            print("{} WON IN {} MOVES!".format(playerTwoName, gameLength))
+            # Populate player2 grid with positions of un hit ship coordinates
+            for ship in playerTwoShipAliveCoords:
+                for coords in ship:
+                    playerTwoGrid[coords[0]][coords[1]] = 's'
+            # Print ships grids
+            printGrid(playerTwoGrid, True, playerTwoName)
+            printGrid(playerOneGrid, True, playerOneName)
         else:
-            print("Invalid input. Please enter either 'y' or 'n'. Please try again.")
+            # Player1 won
+            print("{} WON IN {} MOVES!".format(playerOneName, gameLength))
+            # Populate player1 grid with positions of un hit ship coordinates
+            for ship in playerOneShipAliveCoords:
+                for coords in ship:
+                    playerOneGrid[coords[0]][coords[1]] = 's'
+            # Print ships grids
+            printGrid(playerOneGrid, True, playerOneName)
+            printGrid(playerTwoGrid, True, playerTwoName)
 
-    if playAgain == 'y':
-        continue
-    elif playAgain == 'n':
-        break
+        sleep(5)
+        print("Thanks for playing!")
+
+        # Check if players want to play again
+        playAgain = ''
+        while True:
+            playAgain = input("Would you like to play again? [y/n] ")
+            playAgain = playAgain.lower()
+            if playAgain == 'y' or playAgain == 'n':
+                break
+            else:
+                print("Invalid input. Please enter either 'y' or 'n'. Please try again.")
+
+        if playAgain == 'y':
+            continue
+        elif playAgain == 'n':
+            break
+
+
+# Play game
+if __name__ == "__main__":
+    runBattleshipMulti()
