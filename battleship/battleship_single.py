@@ -270,97 +270,104 @@ def hitShip(coords, shipCoords, shipIndex=5):
     return -1
 
 
-# Declare const variables
-shipNames = ['Carrier', 'Battleship', 'Cruiser', 'Submarine', 'Destroyer']
-shipLength = [5, 4, 3, 3, 2]
-directionMap = {
-    'w': (-1, 0),
-    'a': (0, -1),
-    's': (1, 0),
-    'd': (0, 1),
-}
+def runBattleshipSingle():
+    '''Overarching game loop'''
+    # Declare const variables
+    shipNames = ['Carrier', 'Battleship', 'Cruiser', 'Submarine', 'Destroyer']
+    shipLength = [5, 4, 3, 3, 2]
+    directionMap = {
+        'w': (-1, 0),
+        'a': (0, -1),
+        's': (1, 0),
+        'd': (0, 1),
+    }
 
-# Full game loop
-while True:
-    # player view of player's grid, initialize with 10x10 grid of ' '
-    playerGrid = [[' ' for i in range(10)] for j in range(10)]
-    # player view of computer's grid, initialize with 10x10 grid of ' '
-    computerGrid = [[' ' for i in range(10)] for j in range(10)]
-    # Keep track of ships alive for player and computer to determine when to end the game
-    playerShipsAlive = 5
-    computerShipsAlive = 5
-    gameLength = 0
-    # Track coordinates for ships alive and sunk for both player and computer in order to update char from 'o' to 'x' when the entire ship is sunk. Each index represents 1 ship.
-    playerShipAliveCoords = [set() for i in range(5)]
-    playerShipSunkCoords = [set() for i in range(5)]
-    computerShipAliveCoords = [set() for i in range(5)]
-    computerShipSunkCoords = [set() for i in range(5)]
-
-    # Set of all computer available attacks
-    computerAvailableAttacks = set()
-    for i in range(10):
-        for j in range(10):
-            computerAvailableAttacks.add((i, j))
-
-    print('Welcome to Battleship!')
-    print("--------------------------------------------------")
-    sleep(2)
-
-    # Set ships for computer and player
-    setComputerShips(shipNames, shipLength, computerShipAliveCoords)
-    setPlayerShips(shipNames, shipLength, playerShipAliveCoords,
-                   playerGrid, directionMap)
-
-    # Game loop
+    # Full game loop
     while True:
-        gameLength += 1
-        # Player turn
-        computerShipsAlive = playerTurn(shipNames, computerGrid, computerShipsAlive, computerShipAliveCoords,
-                                        computerShipSunkCoords)
-        # Check if game over
-        if computerShipsAlive == 0 and playerShipsAlive > 1:
-            break
+        # player view of player's grid, initialize with 10x10 grid of ' '
+        playerGrid = [[' ' for i in range(10)] for j in range(10)]
+        # player view of computer's grid, initialize with 10x10 grid of ' '
+        computerGrid = [[' ' for i in range(10)] for j in range(10)]
+        # Keep track of ships alive for player and computer to determine when to end the game
+        playerShipsAlive = 5
+        computerShipsAlive = 5
+        gameLength = 0
+        # Track coordinates for ships alive and sunk for both player and computer in order to update char from 'o' to 'x' when the entire ship is sunk. Each index represents 1 ship.
+        playerShipAliveCoords = [set() for i in range(5)]
+        playerShipSunkCoords = [set() for i in range(5)]
+        computerShipAliveCoords = [set() for i in range(5)]
+        computerShipSunkCoords = [set() for i in range(5)]
 
-        # Computer turn
-        playerShipsAlive = computerTurn(shipNames, playerGrid, playerShipsAlive,
-                                        playerShipAliveCoords, playerShipSunkCoords, computerAvailableAttacks)
-        # Check if game over
-        if computerShipsAlive == 0 or playerShipsAlive == 0:
-            break
+        # Set of all computer available attacks
+        computerAvailableAttacks = set()
+        for i in range(10):
+            for j in range(10):
+                computerAvailableAttacks.add((i, j))
 
-    if playerShipsAlive == 0 and computerShipsAlive == 0:
-        print('TIE!')
-        printGrid(playerGrid, True)
-        printGrid(computerGrid, False)
-    elif computerShipsAlive == 0:
-        # Player won
-        print("YOU WON IN {} MOVES!".format(gameLength))
-        printGrid(playerGrid, True)
-        printGrid(computerGrid, False)
-    else:
-        # Computer won
-        print("YOU LOST!")
-        printGrid(playerGrid, True)
-        # Populate computer grid with positions of un hit ship coordinates
-        for ship in computerShipAliveCoords:
-            for coords in ship:
-                computerGrid[coords[0]][coords[1]] = 's'
-        printGrid(computerGrid, False)
+        print('Welcome to Battleship!')
+        print("--------------------------------------------------")
+        sleep(2)
 
-    sleep(5)
-    print("Thanks for playing!")
+        # Set ships for computer and player
+        setComputerShips(shipNames, shipLength, computerShipAliveCoords)
+        setPlayerShips(shipNames, shipLength, playerShipAliveCoords,
+                       playerGrid, directionMap)
 
-    # Check if player wants to play again
-    playAgain = ''
-    while True:
-        playAgain = input("Would you like to play again? [y/n] ")
-        playAgain = playAgain.lower()
-        if playAgain == 'y' or playAgain == 'n':
-            break
+        # Game loop
+        while True:
+            gameLength += 1
+            # Player turn
+            computerShipsAlive = playerTurn(shipNames, computerGrid, computerShipsAlive, computerShipAliveCoords,
+                                            computerShipSunkCoords)
+            # Check if game over
+            if computerShipsAlive == 0 and playerShipsAlive > 1:
+                break
+
+            # Computer turn
+            playerShipsAlive = computerTurn(shipNames, playerGrid, playerShipsAlive,
+                                            playerShipAliveCoords, playerShipSunkCoords, computerAvailableAttacks)
+            # Check if game over
+            if computerShipsAlive == 0 or playerShipsAlive == 0:
+                break
+
+        if playerShipsAlive == 0 and computerShipsAlive == 0:
+            print('TIE!')
+            printGrid(playerGrid, True)
+            printGrid(computerGrid, False)
+        elif computerShipsAlive == 0:
+            # Player won
+            print("YOU WON IN {} MOVES!".format(gameLength))
+            printGrid(playerGrid, True)
+            printGrid(computerGrid, False)
         else:
-            print("Invalid input. Please enter either 'y' or 'n'. Please try again.")
+            # Computer won
+            print("YOU LOST!")
+            printGrid(playerGrid, True)
+            # Populate computer grid with positions of un hit ship coordinates
+            for ship in computerShipAliveCoords:
+                for coords in ship:
+                    computerGrid[coords[0]][coords[1]] = 's'
+            printGrid(computerGrid, False)
 
-    if playAgain == 'y':
-        continue
-    elif playAgain == 'n':
-        break
+        sleep(5)
+        print("Thanks for playing!")
+
+        # Check if player wants to play again
+        playAgain = ''
+        while True:
+            playAgain = input("Would you like to play again? [y/n] ")
+            playAgain = playAgain.lower()
+            if playAgain == 'y' or playAgain == 'n':
+                break
+            else:
+                print("Invalid input. Please enter either 'y' or 'n'. Please try again.")
+
+        if playAgain == 'y':
+            continue
+        elif playAgain == 'n':
+            break
+
+
+# Play game
+if __name__ == "__main__":
+    runBattleshipSingle()
