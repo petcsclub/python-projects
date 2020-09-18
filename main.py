@@ -43,7 +43,6 @@ while True:
     sleep(2)
 
     if choice == '0':
-        # Placeholder
         runMadlibs()
     elif choice == '1':
         runMadlibsCustom()
