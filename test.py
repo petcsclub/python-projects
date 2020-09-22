@@ -4,7 +4,7 @@ This is the testing version of the game. The code is exactly the same, with the 
 
 from random import randint, choice
 from time import sleep
-from os import system
+import os
 # from colorama import Fore, Style
 
 # You can change these constant lists depending on the story you create
@@ -220,7 +220,7 @@ while True:
   if playAgain == "no":
     break
   sleep(1)
-  system('clear')
+  os.system('cls' if os.name == 'nt' else 'clear')
 
 
 print("\nThanks for playing!")
