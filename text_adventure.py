@@ -12,6 +12,7 @@ yes_no = ["yes", "no"]
 directions = ["left", "right"]
 moves = ["fight", "run", "dodge", "inspect"]
 classes = ["knight", "hunter"]
+bosses = ["dragon", "orc"]
 
 def make_decision(prompt, choices):
   """
@@ -49,7 +50,7 @@ def generate_boss():
   """
   Returns a randomly generated boss with stats
   """
-  boss_type = choice(["dragon", "orc"])
+  boss_type = choice(bosses)
   if boss_type == "dragon":
     return {
       "type": "dragon",
