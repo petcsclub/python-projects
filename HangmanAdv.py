@@ -13,7 +13,8 @@ CHECKLIST:
 import random #answer selects from a list of words instead of just one for variability (5)
 wordList = ["I Love Aardvarks", "I Hate Aardvarks", "Aardvarks Are OK"]
 answer = wordList[random.randint(0,len(wordList)-1)]
-lives = 6
+numMistakes = 0
+manList = [" \n o","\n/", "|","\\","\n /","\\"]
 
 ansList = [] 
 for i in range(len(answer)): 
@@ -26,31 +27,38 @@ for i in range(len(answer)): #Allows for spaces in the answer (3)
         guessedAns[i] = " "
 
 
-"""gameplay""" 
-while (guessedAns != ansList and lives > 0):
-    correctGuess = False 
-    print (guessedAns) 
-    print ("lives: " + str(lives))
-    print ("mistakes: " + str(mistakes))
-    guess = input("guess a letter: ") 
+"""gameplay"""
+playAgain = True
+while (playAgain):
+    while (guessedAns != ansList and numMistakes < 7):
+        correctGuess = False 
+        print (guessedAns) 
+        for i in range(numMistakes):
+            print(manList[i], end = "")
+        print ("\nmistakes: " + str(mistakes))
+        guess = input("guess a letter: ") 
 
-    if (len(guess) > 1): #Checks that the guess is only 1 letter and not repeated, correctGuess' use is to re-loop the code (1, 2)
-        print("Please only guess 1 letter!")
-        correctGuess = True
-    if (guess.lower() in mistakes or guess.lower() in guessedAns):
-        print("You already guessed that!")
-        correctGuess = True
-        
-    for i in range(len(answer)): 
-        if (guess.lower() == ansList[i]): 
-            guessedAns[i] = guess.lower()
+        if (len(guess) > 1): #Checks that the guess is only 1 letter and not repeated, correctGuess' use is to re-loop the code (1, 2)
+            print("Please only guess 1 letter!")
             correctGuess = True
-    if (not correctGuess): 
-        lives -= 1
-        mistakes.append(guess.lower())
-    print()
-if (lives == 0): 
-    print ("Better luck next time, you lose!")
-else:
-    print ("Great job, you win!")
-    
+        if (guess.lower() in mistakes or guess.lower() in guessedAns):
+            print("You already guessed that!")
+            correctGuess = True
+            
+        for i in range(len(answer)): 
+            if (guess.lower() == ansList[i]): 
+                guessedAns[i] = guess.lower()
+                correctGuess = True
+        if (not correctGuess): 
+            numMistakes+=1
+            mistakes.append(guess.lower())
+        print()
+    if (numMistakes == 7): 
+        print ("Better luck next time, you lose!")
+    else:
+        print ("Great job, you win!")
+    retry = input("Would you like to play again? (y/n - any other answer will be interpeted as yes")
+    if (retry.lower() == "n"):
+        print("Goodbye!")
+        playAgain = False
+   
