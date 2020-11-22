@@ -1,20 +1,11 @@
 #Hangman - Advanced - Ethan Kang
 
-"""
-CHECKLIST:
-1. The user can make the same mistake *no longer
-2. The user can enter more than one letter (always punished) *no longer
-3. The answer is limited to one word (due to spaces) *no longer
-4. Case sensitivity *no longer exists
-5. Answer is the same every time *no longer
-"""
-
 """setting up"""
 import random #answer selects from a list of words instead of just one for variability (5)
 wordList = ["I Love Aardvarks", "I Hate Aardvarks", "Aardvarks Are OK"]
-answer = wordList[random.randint(0,len(wordList)-1)]
+answer = random.choice(wordList)
 numMistakes = 0
-manList = [" \n o","\n/", "|","\\","\n /","\\"]
+manList = [" \n o","\n/", "|","\\","\n/"," \\"]
 
 ansList = [] 
 for i in range(len(answer)): 
@@ -30,35 +21,37 @@ for i in range(len(answer)): #Allows for spaces in the answer (3)
 """gameplay"""
 playAgain = True
 while (playAgain):
-    while (guessedAns != ansList and numMistakes < 7):
+    while ("".join(guessedAns) != answer and numMistakes < 7):
         correctGuess = False 
-        print (guessedAns) 
+        print (" ".join(guessedAns)) 
         for i in range(numMistakes):
             print(manList[i], end = "")
-        print ("\nmistakes: " + str(mistakes))
-        guess = input("guess a letter: ") 
+        print ("\nmistakes: " + ", ".join(mistakes))
+        guess = input("guess a letter: ").lower()
 
-        if (len(guess) > 1): #Checks that the guess is only 1 letter and not repeated, correctGuess' use is to re-loop the code (1, 2)
+        if (len(guess) != 1): #Checks that the guess is only 1 letter and not repeated, correctGuess' use is to re-loop the code (1, 2)
             print("Please only guess 1 letter!")
-            correctGuess = True
-        if (guess.lower() in mistakes or guess.lower() in guessedAns):
+            continue
+        if (guess in mistakes or guess in guessedAns):
             print("You already guessed that!")
-            correctGuess = True
+            continue
             
         for i in range(len(answer)): 
-            if (guess.lower() == ansList[i]): 
-                guessedAns[i] = guess.lower()
+            if (guess == answer[i].lower()): 
+                guessedAns[i] = answer[i]
                 correctGuess = True
         if (not correctGuess): 
             numMistakes+=1
-            mistakes.append(guess.lower())
+            mistakes.append(guess)
         print()
     if (numMistakes == 7): 
         print ("Better luck next time, you lose!")
     else:
         print ("Great job, you win!")
-    retry = input("Would you like to play again? (y/n - any other answer will be interpeted as yes")
-    if (retry.lower() == "n"):
-        print("Goodbye!")
-        playAgain = False
-   
+    retry = input("Would you like to play again? (y/n) ").lower() #Allows for replayability using boolean retry
+    while retry != "y":
+        if (retry == "n"):
+            print ("Goodbye!")
+            playAgain = False
+            break
+        retry = input("Please input either y or n ").lower()
