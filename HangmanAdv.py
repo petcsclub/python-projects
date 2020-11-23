@@ -3,24 +3,20 @@
 """setting up"""
 import random #answer selects from a list of words instead of just one for variability (5)
 wordList = ["I Love Aardvarks", "I Hate Aardvarks", "Aardvarks Are OK"]
-answer = random.choice(wordList)
-numMistakes = 0
 manList = [" \n o","\n/", "|","\\","\n/"," \\"]
-
-ansList = [] 
-for i in range(len(answer)): 
-    ansList.append(answer[i].lower()) #the answer, along with all instances where the user's guess is checked or added to a list is forced to be lower case to bypass case sensitivity (4)
-mistakes = [] 
-guessedAns = [] 
-for i in range(len(answer)): #Allows for spaces in the answer (3)
-    guessedAns.append("_")
-    if (ansList[i] == " "):
-        guessedAns[i] = " "
-
 
 """gameplay"""
 playAgain = True
-while (playAgain):
+while (playAgain):#Loop allows for replayability
+    answer = random.choice(wordList)
+    numMistakes = 0
+    mistakes = [] 
+    guessedAns = [] 
+    for i in range(len(answer)): #Allows for spaces in the answer
+        guessedAns.append("_")
+        if (answer[i] == " "):
+            guessedAns[i] = " "
+    
     while ("".join(guessedAns) != answer and numMistakes < 7):
         correctGuess = False 
         print (" ".join(guessedAns)) 
@@ -29,7 +25,7 @@ while (playAgain):
         print ("\nmistakes: " + ", ".join(mistakes))
         guess = input("guess a letter: ").lower()
 
-        if (len(guess) != 1): #Checks that the guess is only 1 letter and not repeated, correctGuess' use is to re-loop the code (1, 2)
+        if (len(guess) != 1): #Checks that the guess is only 1 letter and not repeated, correctGuess' use is to re-loop the code=
             print("Please only guess 1 letter!")
             continue
         if (guess in mistakes or guess in guessedAns):
