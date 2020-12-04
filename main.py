@@ -7,6 +7,10 @@ from Connect4.Connect4_normal_replit import run_connect4_normal
 from Connect4.Connect4_hardcore_replit import run_connect4_hardcore
 from madlibs.madlibs import runMadlibs
 from madlibs.madlibs_custom import runMadlibsCustom
+from text_adventure import runTextAdventure
+from Hangman.HangmanEasy import runHangmanEasy
+from Hangman.HangmanAdv import runHangmanAdv
+
 
 class bc:
     BLUE = '\033[94m'
@@ -26,9 +30,10 @@ while True:
     print('6: Text Adventure\n')
 
     print(bc.GREEN + 'HARD' + bc.END)
-    print('7: Hangman')
-    print('8: Battleship Multiplayer')
-    print('9: Battleship Singleplayer\n')
+    print('7: Hangman Easy')
+    print('8: Hangman Hard')
+    print('9: Battleship Multiplayer')
+    print('10: Battleship Singleplayer\n')
 
     choice = ''
     while True:
@@ -54,9 +59,15 @@ while True:
         run_connect4_normal()
     elif choice == '5':
         run_connect4_hardcore()
+    elif choice == '6':
+        runTextAdventure()
+    elif choice == '7':
+        runHangmanEasy()
     elif choice == '8':
-        runBattleshipMulti()
+        runHangmanAdv()
     elif choice == '9':
+        runBattleshipMulti()
+    elif choice == '10':
         runBattleshipSingle()
 
     print('Hope you enjoyed playing! Returning to main menu...\n')
