@@ -38,11 +38,11 @@ while True:
     choice = ''
     while True:
         choice = input(
-            'Which game would you like to play? Please enter an integer from 0 to 9: ')
-        if len(choice) == 1 and choice.isdecimal():
+            'Which game would you like to play? Please enter an integer from 0 to 10: ')
+        if choice.isdecimal() and int(choice) >= 0 and int(choice) <= 10:
             break
         else:
-            print('Invalid input. Please enter an integer from 0 to 9.')
+            print('Invalid input. Please enter an integer from 0 to 10.')
 
     print('Enjoy! Note: if you would like to quit the game, do Ctrl + C. Then click the "run again" button at the bottom of the screen.\n')
     sleep(2)
